@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class LoginrequestDto {
     @NotBlank
-    @Size(min=3, max = 60)
+    @Size(min=7, max = 60)
     private String email;
 
     @NotBlank
