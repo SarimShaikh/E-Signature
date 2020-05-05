@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>User Profile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{../css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{../css/metisMenu.min.css}" href="../../static/css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link th:href="@{../css/timeline.css}" href="../../static/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{../css/startmin.css}" href="../../static/css/startmin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{../css/font-awesome.min.css}" href="../../static/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+
+    <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
+    <script src="../../static/controllerJS/employeeController.js" th:src="@{../controllerJS/employeeController.js}"></script>
+
+</head>
+<body>
+
+<div id="wrapper" ng-app="empApp" ng-controller="employeeController">
+
+    <!-- Navigation -->
+    <div th:replace="pannel/fragments/employeenavbar :: employeenavbar">
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Employee profile setting</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-12">
+                    <form role="form" ng-submit="updateData()">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Employee Code:</label>
+                                <input class="form-control" placeholder="Employee code" type="text" autofocus disabled
+                                       ng-model="employees.employeeCode">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Employee name:</label>
+                                <input class="form-control" placeholder="Employee name" type="text" autofocus required
+                                       ng-model="employees.employeeName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Email:</label>
+                                <input class="form-control" placeholder="E-mail" type="email" autofocus required
+                                       ng-model="employees.employeeEmail">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Contact:</label>
+                                <input class="form-control" placeholder="Contact" type="text" autofocus required
+                                       ng-model="employees.employeeContact">
+                            </div>
+
+                            <div class="form-group col-md-12"></div>
+                            <div class="form-group col-md-1">
+                                <input type="submit" class="btn btn-success" value="UPDATE">
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../../static/js/jquery.min.js" th:src="@{../js/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../../static/js/bootstrap.min.js" th:src="@{../js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../../static/js/metisMenu.min.js" th:src="@{../js/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../../static/js/startmin.js" th:src="@{../js/startmin.js}"></script>
+
+</body>
+</html>

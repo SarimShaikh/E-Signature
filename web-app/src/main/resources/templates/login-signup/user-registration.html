@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SignUp</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../static/css/startmin.css" th:href="@{../css/startmin.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../static/css/font-awesome.min.css" th:href="@{../css/font-awesome.min.css}" rel="stylesheet"
+          type="text/css">
+
+    <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
+    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
+
+    <style type="text/css">
+
+        input[type="date"]:before {
+            content: attr(placeholder) !important;
+            color: #aaa;
+            margin-right: 0.5em;
+        }
+
+        input[type="date"]:focus:before,
+        input[type="date"]:valid:before {
+            content: "";
+        }
+    </style>
+</head>
+<body class="login-signup-body">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default" id="login-body">
+                <div class="panel-heading" style="border-radius: 10px;">
+                    <h3 class="panel-title">USER SIGNUP</h3>
+                </div>
+                <div class="panel-body" ng-app="userApp">
+                    <form role="form" ng-controller="userController" ng-submit="sendData()">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="User name" type="text" autofocus required
+                                       ng-model="userForm.userName">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="E-mail" type="email" autofocus required
+                                       ng-model="userForm.userEmail">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" type="password" autofocus required
+                                       ng-model="userForm.userPassword">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Confirm Password" type="password" autofocus
+                                       required ng-model="userForm.confirmUserPassword">
+
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Contact" type="text" autofocus required
+                                       ng-model="userForm.userContact">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Cnic" type="text" autofocus required
+                                       ng-model="userForm.userCnic">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Date of birth" type="date" autofocus required
+                                       ng-model="userForm.userDob">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" placeholder="Address" autofocus required
+                                          ng-model="userForm.userAddress"></textarea>
+                            </div>
+
+                            <!-- Change this to a button or input when using this as a form -->
+                            <input type="submit" class="btn btn-default btn-block" value="SIGNUP" id="login-btn">
+                            <span>Already registered? <a href="/" th:href="@{/login-signup/login}">Login
+                             here</a></span>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="../../static/js/jquery.min.js" th:src="@{../js/jquery.min.js}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../static/js/bootstrap.min.js" th:src="@{../js/bootstrap.min.js}"></script>
+
+
+
+</body>
+</html>
