@@ -26,10 +26,6 @@ public class EmployeeController extends RestControllerBase<Employee, Long> {
         employeeService = service;
     }
 
-    @PostMapping("/login")
-    public CustomResponseDto LogInUser(@Valid @RequestBody LoginrequestDto loginRequest) {
-        return employeeService.empLogIn(loginRequest);
-    }
 
     @PostMapping("/getemployee")
     @ResponseBody

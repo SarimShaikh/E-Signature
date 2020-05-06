@@ -6,6 +6,7 @@ import webApp.entities.Employee;
 import webApp.entities.dto.CustomResponseDto;
 import webApp.entities.dto.LoginrequestDto;
 import webApp.repositories.EmployeeRepository;
+import webApp.utils.UtilsClass;
 import webBase.service.ServiceBase;
 
 /**
@@ -33,6 +34,7 @@ public class EmployeeService extends ServiceBase<Employee, Long> {
             customResponseDto.setResponseCode("200");
             customResponseDto.setStatus("Login");
             customResponseDto.setMessage("Login Successfully!");
+            customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
             customResponseDto.setEntityClass(employee);
         } else {
             customResponseDto.setResponseCode("400");

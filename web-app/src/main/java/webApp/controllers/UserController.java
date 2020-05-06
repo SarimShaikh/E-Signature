@@ -29,22 +29,10 @@ public class UserController extends RestControllerBase<User, Long> {
         userService = service;
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public CustomResponseDto LogInUser(@Valid @RequestBody LoginrequestDto loginRequest) {
-        User user = userService.findByEmailAndPassword(loginRequest);
-        CustomResponseDto customResponseDto = new CustomResponseDto();
-        if(user!=null){
-            customResponseDto.setResponseCode("200");
-            customResponseDto.setStatus("Login");
-            customResponseDto.setMessage("Login Successfully!");
-            customResponseDto.setEntityClass(user);
-        }else{
-            customResponseDto.setResponseCode("400");
-            customResponseDto.setStatus("UnAuthorized");
-            customResponseDto.setMessage("Invalid Email and Password!");
-        }
-        return customResponseDto;
-    }
+        return userService.userLogIn(loginRequest);
+    }*/
 
     @PostMapping("/getuser")
     @ResponseBody
@@ -54,19 +42,6 @@ public class UserController extends RestControllerBase<User, Long> {
 
     @PostMapping("/signup")
     public CustomResponseDto registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) throws Exception {
-        CustomResponseDto customResponseDto = new CustomResponseDto();
-        User user = userService.findByEmail(userRegistrationDto.getUserEmail());
-        if (user != null) {
-            customResponseDto.setResponseCode("401");
-            customResponseDto.setStatus("exists");
-            customResponseDto.setMessage("User already registered with that email");
-        } else {
-            userService.save(userRegistrationDto);
-            customResponseDto.setResponseCode("201");
-            customResponseDto.setStatus("created");
-            customResponseDto.setMessage("Registered Successfully!");
-        }
-
-        return customResponseDto;
+        return userService.save(userRegistrationDto);
     }
 }

@@ -10,6 +10,7 @@ public class CustomResponseDto implements Serializable {
     private String status;
     private String message;
     private String responseCode;
+    private String outhToken;
     private Object entityClass;
 
     public String getStatus() {
@@ -42,5 +43,13 @@ public class CustomResponseDto implements Serializable {
 
     public void setEntityClass(Object entityClass) {
         this.entityClass = entityClass;
+    }
+
+    public String getOuthToken() {
+        return outhToken;
+    }
+
+    public void setOuthToken(String outhToken) {
+        this.outhToken = outhToken;
     }
 }
