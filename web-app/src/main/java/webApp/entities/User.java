@@ -1,5 +1,6 @@
 package webApp.entities;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User extends EntityBase<String> implements Serializable {
 
     private Long userCode;
