@@ -47,10 +47,12 @@
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" type="password" autofocus required ng-model="empForm.employeePassword">
+                                <span class ="error" ng-show="empForm.employeePassword && empForm.employeePassword.length < 8">Password length should be 8 or greater</span>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Confirm Password" type="password" autofocus
+                                <input class="form-control" placeholder="Confirm Password" ng-model="empForm.confirmEmployeePassword" type="password" autofocus
                                        required>
+                                <span class ="error" ng-show="empForm.employeePassword && empForm.confirmEmployeePassword && empForm.employeePassword != empForm.confirmEmployeePassword">Password and Confirm Password field must be same</span>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Contact" type="text" autofocus required ng-model="empForm.employeeContact">

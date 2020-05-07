@@ -9,7 +9,7 @@ app.controller("employeeController", function ($scope, $http) {
 
     $scope.employees = [];
     $scope.empForm = {
-        employeeCode:"",
+        employeeCode: "",
         employeeName: "",
         employeeEmail: "",
         employeePassword: "",
@@ -27,16 +27,19 @@ app.controller("employeeController", function ($scope, $http) {
     _getEmpDataByCode();
 
     $scope.sendData = function () {
-
-        $http({
-            method: "POST",
-            url: "http://localhost:8080/api/auth/employee/signup",
-            data: angular.toJson($scope.empForm),
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        }).then(_success, _error);
+        if (_validateEmail($scope.empForm.employeeEmail)) {
+            alert("Invalid Email Address");
+        } else {
+            $http({
+                method: "POST",
+                url: "http://localhost:8080/api/auth/employee/signup",
+                data: angular.toJson($scope.empForm),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }).then(_success, _error);
+        }
     };
 
     $scope.updateData = function () {
@@ -76,11 +79,16 @@ app.controller("employeeController", function ($scope, $http) {
         );
     }
 
+    function _validateEmail(email) {
+        var emailValidity = !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/i.test(email);
+        return emailValidity;
+    }
+
     function _success(res) {
         debugger;
         if (res.data.responseCode == 201) {
             alert(res.data.message);
-            window.location.replace('http://localhost:8080/employee/login');
+            window.location.replace('http://localhost:8080/user/login');
         }
     }
 
