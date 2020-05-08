@@ -28,6 +28,7 @@ public class User extends EntityBase<String> implements Serializable {
     private String userSignatureCode;
     private String userSignature;
     private String userAddress;
+    private Collection<DeclarationDocument> declarationDocuments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,5 +131,13 @@ public class User extends EntityBase<String> implements Serializable {
         this.userAddress = userAddress;
     }
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    public Collection<DeclarationDocument> getDeclarationDocuments() {
+        return declarationDocuments;
+    }
 
+    public void setDeclarationDocuments(Collection<DeclarationDocument> declarationDocuments) {
+        this.declarationDocuments = declarationDocuments;
+    }
 }

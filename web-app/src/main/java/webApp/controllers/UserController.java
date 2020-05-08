@@ -29,11 +29,6 @@ public class UserController extends RestControllerBase<User, Long> {
         userService = service;
     }
 
-    /*@PostMapping("/login")
-    public CustomResponseDto LogInUser(@Valid @RequestBody LoginrequestDto loginRequest) {
-        return userService.userLogIn(loginRequest);
-    }*/
-
     @PostMapping("/getuser")
     @ResponseBody
     public User getByCode(@RequestParam(name = "userCode") Long userCode) {
