@@ -20,7 +20,8 @@
           type="text/css">
 
     <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
-    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userLoginController.js}"></script>
+    <script src="../../static/controllerJS/userController.js"
+            th:src="@{../controllerJS/userLoginController.js}"></script>
 
 </head>
 <body class="login-signup-body">
@@ -36,21 +37,24 @@
                     <form role="form" ng-controller="userLoginController" ng-submit="sendData()">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus ng-model="loginForm.email">
+                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus required
+                                     ng-pattern="/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/"
+                                     ng-model="loginForm.email">
+                                <!--<span class="error" ng-show="!/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/i.test(loginForm.email)">*Invalid Email Address</span>-->
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" name="password" type="password"
                                        ng-model="loginForm.password">
+                                <span class ="error" ng-show="loginForm.password && loginForm.password.length < 8">Password length should be 8 or greater</span>
                             </div>
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Customer
+                                    <input name="remember" ng-model="loginForm.type" required type="radio" value="C">Customer
                                 </label>
                                 <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Employee
+                                    <input name="remember" ng-model="loginForm.type" type="radio" value="E">Employee
                                 </label>
                             </div>
-                             Change this to a button or input when using this as a form
                             <input type="submit" class="btn btn-default btn-block" value="LOGIN" id="login-btn">
                         </fieldset>
                     </form>

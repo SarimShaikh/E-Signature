@@ -16,13 +16,18 @@ app.controller("userLoginController", function ($scope, $http) {
         type: ""
     };
 
-    // HTTP POST/PUT methods for add/edit student
-    // Call: http://localhost:8080/student
+    // HTTP POST/PUT methods for add/edit User
     $scope.sendData = function () {
-
+       console.log("$scope.loginForm", $scope.loginForm);
+       var url = "";
+       if($scope.loginForm.type == 'C'){
+           url = "http://localhost:8080/api/auth/login?userType=user";
+       } else {
+           url = "http://localhost:8080/api/auth/login?userType=emp";
+       }
         $http({
             method: "POST",
-            url: "http://localhost:8080/api/auth/users/login",
+            url: url,
             data: angular.toJson($scope.loginForm),
             headers: {
                 'Content-Type': 'application/json',
@@ -31,35 +36,20 @@ app.controller("userLoginController", function ($scope, $http) {
         }).then(_success, _error);
     };
 
-    $scope.sendempLogin = function () {
-
-        $http({
-            method: "POST",
-            url: "http://localhost:8080/api/auth/employee/login",
-            data: angular.toJson($scope.loginForm),
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        }).then(function (res) { // success
-                alert("LogIn");
-                if (res.data.responseCode == 200) {
-                    localStorage.setItem('empObject', JSON.stringify(res.data.entityClass));
-                    window.location.replace('http://localhost:8080/employee/dashboard');
-                }
-            },
-            function (res) { // error
-                console.log("Error: " + res.status + " : " + res.data);
-            });
-    };
-
     function _success(res) {
-        console.log('response', res);
+        console.log('response', res.data);
         alert(res.data.message);
-        if (res.data.responseCode == 200) {
-            debugger;
-            localStorage.setItem('userObject', JSON.stringify(res.data.entityClass));
-            window.location.replace('http://localhost:8080/user/dashboard');
+        if (res.data.responseCode == 200 && res.data.entityClass.userCode) {
+            var user = res.data.entityClass;
+            user.oathToken = res.data.outhToken;
+            console.log('user', user);
+            localStorage.setItem('userObject', JSON.stringify(user));
+            window.location.href = 'http://localhost:8080/user/dashboard' + '/token?' + res.data.outhToken;
+        } else{
+            var employee = res.data.entityClass;
+            employee.oathToken = res.data.outhToken;
+            localStorage.setItem('empObject', JSON.stringify(employee));
+            window.location.href = 'http://localhost:8080/employee/dashboard' + '/token?' + res.data.outhToken;
         }
     }
 

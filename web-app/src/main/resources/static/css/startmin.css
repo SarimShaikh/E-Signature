@@ -48,6 +48,10 @@ body {
     text-align: right;
 }
 
+.error{
+    color: red;
+}
+
 .navbar-top-links {
     margin: 0;
 }
