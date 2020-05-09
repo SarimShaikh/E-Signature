@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,9 +27,6 @@
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-    <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
-    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
 
 </head>
 
@@ -114,7 +111,7 @@
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="../login-signup/login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
             </li>
@@ -146,10 +143,10 @@
                         <a href="#"><i class="fa fa-wpforms fa-fw"></i>Forms<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="declaration-form.html">Declaration Form</a>
+                                <a th:href="@{/user/declaration}">Declaration Form</a>
                             </li>
                             <li>
-                                <a href="#">Taxation Form</a>
+                                <a th:href="@{/user/declaration}">Taxation Form</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

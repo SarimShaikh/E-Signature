@@ -67,9 +67,10 @@ public class UserService extends ServiceBase<User, Long> {
             user.setUserPassword(userRegistrationDto.getUserPassword());
             user.setUserContact(userRegistrationDto.getUserContact());
             user.setUserCnic(userRegistrationDto.getUserCnic());
-            user.setUserDob(userRegistrationDto.getUserDob());
+            user.setUserDob(UtilsClass.dateformat(userRegistrationDto.getUserDob()));
             user.setUserSignatureCode(UtilsClass.generateSignatureCode());
             user.setUserAddress(userRegistrationDto.getUserAddress());
+            user.setIsSignSelect("N");
             User existSignatureCode = findBySignatureCode(user.getUserSignatureCode());
             if (existSignatureCode != null) {
                 user.setUserSignatureCode(UtilsClass.generateSignatureCode());

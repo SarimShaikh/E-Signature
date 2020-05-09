@@ -88,7 +88,7 @@ app.controller("employeeController", function ($scope, $http) {
         debugger;
         if (res.data.responseCode == 201) {
             alert(res.data.message);
-            window.location.replace('http://localhost:8080/user/login');
+            window.location.replace('http://localhost:8080/login');
         }
     }
 
