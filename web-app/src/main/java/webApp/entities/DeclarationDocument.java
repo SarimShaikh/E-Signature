@@ -2,6 +2,7 @@ package webApp.entities;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
+import webApp.utils.UtilsClass;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
     private String bussinessClient;
     private String bsbNumber;
     private String agentName;
-    private Integer documentPeriod;
+    private String documentPeriod;
     private String paperDeclareDate;
     private String bussinessAddress;
     private String documentStatus;
@@ -104,11 +105,11 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
 
     @Basic
     @Column(name = "DOCUMENT_PERIOD", nullable = false)
-    public Integer getDocumentPeriod() {
+    public String getDocumentPeriod() {
         return documentPeriod;
     }
 
-    public void setDocumentPeriod(Integer documentPeriod) {
+    public void setDocumentPeriod(String documentPeriod) {
         this.documentPeriod = documentPeriod;
     }
 
@@ -182,8 +183,8 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
         this.isActive = isActive;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "USER_CODE", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_CODE", nullable = false , insertable = false , updatable = false)
     public User getUser() {
         return user;
     }

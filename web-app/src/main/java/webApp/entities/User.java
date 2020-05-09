@@ -1,12 +1,15 @@
 package webApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
+import webApp.utils.UtilsClass;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +31,8 @@ public class User extends EntityBase<String> implements Serializable {
     private String userSignatureCode;
     private String userSignature;
     private String userAddress;
-    private Collection<DeclarationDocument> declarationDocuments;
+    private String isSignSelect;
+    private List<DeclarationDocument> declarationDocuments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -131,13 +135,24 @@ public class User extends EntityBase<String> implements Serializable {
         this.userAddress = userAddress;
     }
 
+    @Basic
+    @Column(name = "IS_SIGN_SELECT", nullable = false)
+    public String getIsSignSelect() {
+        return isSignSelect;
+    }
+
+    public void setIsSignSelect(String isSignSelect) {
+        this.isSignSelect = isSignSelect;
+    }
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    public Collection<DeclarationDocument> getDeclarationDocuments() {
+    public List<DeclarationDocument> getDeclarationDocuments() {
         return declarationDocuments;
     }
 
-    public void setDeclarationDocuments(Collection<DeclarationDocument> declarationDocuments) {
+    public void setDeclarationDocuments(List<DeclarationDocument> declarationDocuments) {
         this.declarationDocuments = declarationDocuments;
     }
 }

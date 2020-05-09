@@ -39,4 +39,9 @@ public class UserController extends RestControllerBase<User, Long> {
     public CustomResponseDto registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) throws Exception {
         return userService.save(userRegistrationDto);
     }
+
+    @PostMapping("/assignSignature")
+    public User assignSignature(@Valid @RequestBody User user) throws Exception {
+        return userService.assignSignature(user);
+    }
 }

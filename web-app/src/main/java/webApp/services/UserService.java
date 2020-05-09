@@ -1,6 +1,5 @@
 package webApp.services;
 
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import webApp.entities.User;
 import org.springframework.stereotype.Service;
@@ -10,8 +9,9 @@ import webApp.entities.dto.UserRegistrationDto;
 import webApp.repositories.UserRepository;
 import webApp.utils.UtilsClass;
 import webBase.service.ServiceBase;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Created by Sarim on 5/1/2020.
@@ -19,7 +19,8 @@ import java.util.Optional;
 @Service
 public class UserService extends ServiceBase<User, Long> {
 
-
+    @PersistenceContext
+    private EntityManager entityManager;
     private UserRepository userRepository;
 
     @Autowired
@@ -30,6 +31,11 @@ public class UserService extends ServiceBase<User, Long> {
 
     public User findByCode(Long userCode) {
         return userRepository.findByUserCode(userCode);
+    }
+
+    @Transactional
+    public User assignSignature(User user){
+       return entityManager.merge(user);
     }
 
     public CustomResponseDto userLogIn(LoginrequestDto loginrequestDto) {
@@ -67,9 +73,10 @@ public class UserService extends ServiceBase<User, Long> {
             user.setUserPassword(userRegistrationDto.getUserPassword());
             user.setUserContact(userRegistrationDto.getUserContact());
             user.setUserCnic(userRegistrationDto.getUserCnic());
-            user.setUserDob(userRegistrationDto.getUserDob());
+            user.setUserDob(UtilsClass.dateformat(userRegistrationDto.getUserDob()));
             user.setUserSignatureCode(UtilsClass.generateSignatureCode());
             user.setUserAddress(userRegistrationDto.getUserAddress());
+            user.setIsSignSelect("N");
             User existSignatureCode = findBySignatureCode(user.getUserSignatureCode());
             if (existSignatureCode != null) {
                 user.setUserSignatureCode(UtilsClass.generateSignatureCode());

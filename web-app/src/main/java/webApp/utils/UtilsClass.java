@@ -1,7 +1,10 @@
 package webApp.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
@@ -29,15 +32,11 @@ public class UtilsClass {
                 .toString();
     }
 
-    /*public static String dateformat(String date) {
-        String dob = date;  //its in MM/dd/yyyy
-        String newDate = null;
-        Date dtDob = new Date(dob);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            newDate = sdf.format(dtDob);
-        } catch (Exception e) {
-        }
-        return newDate;
-    }*/
+    public static String dateformat(String date) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate localdate = LocalDate.parse(date, inputFormatter);
+        return outputFormatter.format(localdate).toString();
+
+    }
 }

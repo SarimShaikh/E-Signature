@@ -15,13 +15,11 @@ import java.util.Optional;
 @Transactional
 public abstract class ServiceBase<T, ID extends Serializable> {
 
-    private Class<T> entityClass;
-    protected final RepositoryBase<T, ID> repository;
-
     private static final Logger LOGGER = Logger.getLogger(ServiceBase.class);
-
+    protected final RepositoryBase<T, ID> repository;
     @Autowired
     protected JdbcTemplate DB;
+    private Class<T> entityClass;
 
     @Autowired
     public ServiceBase(final RepositoryBase<T, ID> repository) {
@@ -43,7 +41,7 @@ public abstract class ServiceBase<T, ID extends Serializable> {
 
     public T update(final T entity) {
         LOGGER.info(String.format("Service --> update for {%s}", entity.toString()));
-        return this.repository.save(entity);
+        return this.repository.saveAndFlush(entity);
     }
 
     public void delete(final T entity) {

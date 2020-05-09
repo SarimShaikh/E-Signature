@@ -44,16 +44,17 @@ app.controller("userLoginController", function ($scope, $http) {
             user.oathToken = res.data.outhToken;
             console.log('user', user);
             localStorage.setItem('userObject', JSON.stringify(user));
-            window.location.href = 'http://localhost:8080/user/dashboard' + '/token?' + res.data.outhToken;
+            window.location.href = 'http://localhost:8080/user/dashboard' + '?outhToken=' + res.data.outhToken;
         } else{
             var employee = res.data.entityClass;
             employee.oathToken = res.data.outhToken;
             localStorage.setItem('empObject', JSON.stringify(employee));
-            window.location.href = 'http://localhost:8080/employee/dashboard' + '/token?' + res.data.outhToken;
+            window.location.href = 'http://localhost:8080/employee/dashboard' + '?outhToken=' + res.data.outhToken;
         }
     }
 
     function _error(res) {
+        debugger
         var data = res.data;
         var status = res.status;
         var header = res.header;
