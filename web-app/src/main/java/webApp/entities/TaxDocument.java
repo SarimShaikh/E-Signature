@@ -1,5 +1,4 @@
 package webApp.entities;
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
 import webApp.utils.UtilsClass;
@@ -7,40 +6,45 @@ import webApp.utils.UtilsClass;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Sarim on 5/7/2020.
- */
-@Entity
-@Table(name = "declaration_document")
-@EntityListeners(AuditingEntityListener.class)
-public class DeclarationDocument extends EntityBase<String> implements Serializable {
 
-    private Long documentCode;
+/**
+ * Created by Syed Asher Ahmed on 5/10/2020.
+ */
+
+@Entity
+@Table(name = "tax_document")
+@EntityListeners(AuditingEntityListener.class)
+public class TaxDocument extends EntityBase<String> implements Serializable {
+    private Long taxDocumentCode;
     private Long userCode;
     private String documentName;
     private String abnNumber;
+    private String companyName;
     private String bussinessClient;
+    private String contactNo;
+    private String postCode;
+    private String bankName;
     private String bsbNumber;
-    private String agentName;
-    private String documentPeriod;
-    private String paperDeclareDate;
-    private String bussinessAddress;
-    private String documentStatus;
-    private String approvedBy;
+    private String accountNo;
     private String signatureCode;
     private String signature;
+    private String bussinessAddress;
+    private String homeAddress;
+    private String documentStatus;
+    private String approvedBy;
     private Byte isActive;
     private User user;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DOCUMENT_CODE", nullable = false)
-    public Long getDocumentCode() {
-        return documentCode;
+    @Column(name = "TAX_DOCUMENT_CODE", nullable = false)
+    public Long getTaxDocumentCode() {
+        return taxDocumentCode;
     }
 
-    public void setDocumentCode(Long documentCode) {
-        this.documentCode = documentCode;
+    public void setTaxDocumentCode(Long taxDocumentCode) {
+        this.taxDocumentCode = taxDocumentCode;
     }
 
     @Basic
@@ -74,6 +78,16 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
     }
 
     @Basic
+    @Column(name = "COMPANY_NAME", nullable = false)
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    @Basic
     @Column(name = "BUSSINESS_CLIENT", nullable = false)
     public String getBussinessClient() {
         return bussinessClient;
@@ -81,6 +95,36 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
 
     public void setBussinessClient(String bussinessClient) {
         this.bussinessClient = bussinessClient;
+    }
+
+    @Basic
+    @Column(name = "CONTACT_NO", nullable = false)
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    @Basic
+    @Column(name = "POST_CODE", nullable = false)
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    @Basic
+    @Column(name = "BANK_NAME", nullable = false)
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     @Basic
@@ -94,63 +138,13 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
     }
 
     @Basic
-    @Column(name = "AGENT_NAME", nullable = false)
-    public String getAgentName() {
-        return agentName;
+    @Column(name = "ACCOUNT_NO", nullable = false)
+    public String getAccountNo() {
+        return accountNo;
     }
 
-    public void setAgentName(String agentName) {
-        this.agentName = agentName;
-    }
-
-    @Basic
-    @Column(name = "DOCUMENT_PERIOD", nullable = false)
-    public String getDocumentPeriod() {
-        return documentPeriod;
-    }
-
-    public void setDocumentPeriod(String documentPeriod) {
-        this.documentPeriod = documentPeriod;
-    }
-
-    @Basic
-    @Column(name = "PAPER_DECLARE_DATE", nullable = false)
-    public String getPaperDeclareDate() {
-        return paperDeclareDate;
-    }
-
-    public void setPaperDeclareDate(String paperDeclareDate) {
-        this.paperDeclareDate = UtilsClass.dateformat(paperDeclareDate);
-    }
-
-    @Basic
-    @Column(name = "BUSSINESS_ADDRESS", nullable = false)
-    public String getBussinessAddress() {
-        return bussinessAddress;
-    }
-
-    public void setBussinessAddress(String bussinessAddress) {
-        this.bussinessAddress = bussinessAddress;
-    }
-
-    @Basic
-    @Column(name = "DOCUMENT_STATUS", nullable = false)
-    public String getDocumentStatus() {
-        return documentStatus;
-    }
-
-    public void setDocumentStatus(String documentStatus) {
-        this.documentStatus = documentStatus;
-    }
-
-    @Basic
-    @Column(name = "APPROVED_BY", nullable = false)
-    public String getApprovedBy() {
-        return approvedBy;
-    }
-
-    public void setApprovedBy(String approvedBy) {
-        this.approvedBy = approvedBy;
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
     }
 
     @Basic
@@ -171,6 +165,46 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    @Basic
+    @Column(name = "BUSSINESS_ADDRESS", nullable = false)
+    public String getBussinessAddress() {
+        return bussinessAddress;
+    }
+
+    public void setBussinessAddress(String bussinessAddress) {
+        this.bussinessAddress = bussinessAddress;
+    }
+
+    @Basic
+    @Column(name = "HOME_ADDRESS", nullable = false)
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    @Basic
+    @Column(name = "DOCUMENT_STATUS", nullable = false)
+    public String getDocumentStatus() {
+        return documentStatus;
+    }
+
+    public void setDocumentStatus(String documentStatus) {
+        this.documentStatus = documentStatus;
+    }
+
+    @Basic
+    @Column(name = "APPROVED_BY", nullable = false)
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
     }
 
     @Basic

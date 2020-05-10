@@ -29,6 +29,10 @@ app.controller("userController", function ($scope, $http) {
 
     _getUserDataByCode();
 
+    $scope.logout = function() {
+        localStorage.clear();
+    };
+
     $scope.sendData = function () {
 
         // Formatting Date Of Birth
@@ -187,7 +191,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
             debugger;
             $scope.userObject.userSignature = $scope.decForm.signatureCode;
             if ($scope.userObject.isSignSelect == 'N') {
-                _assignUsersignature();
+               // _assignUsersignature();
             }
             else {
                 alert("Form submit successfully");
@@ -228,5 +232,124 @@ angular.module("userApp").controller("declarationDocumentController", function (
     $scope.resetForm = function (form) {
         angular.copy({}, $scope.decForm);
     }
+
+});
+
+// Tax Document Module
+
+angular.module("userApp").controller("taxDocumentController", function ($scope, $http) {
+
+    console.log("------------>taxDocumentController");
+    $scope.userObject = {};
+    $scope.signatures = [];
+    $scope.signatureCode = "";
+    $scope.taxForm = {
+        userCode: "",
+        documentName: "",
+        abnNumber: "",
+        companyName: "",
+        bussinessClient: "",
+        contactNo: "",
+        postCode: "",
+        bankName: "",
+        bsbNumber: "",
+        accountNo: "",
+        documentStatus: "P",
+        bussinessAddress: "",
+        homeAddress: "",
+        approvedBy: "NONE",
+        signatureCode: "",
+        signature: "",
+        isActive: 1
+    };
+
+    if (localStorage.getItem('userObject')) {
+        debugger;
+        $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
+        $scope.signatureCode = $scope.userObject.userSignatureCode;
+        $scope.taxForm.userCode = $scope.userObject.userCode;
+        console.log("Admin ID----->" + $scope.taxForm.userCode + "------->" + $scope.signatureCode);
+    }
+
+    _generateSignature();
+
+    function randomSignature(length, chars) {
+        var result = '';
+        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
+
+    function _generateSignature() {
+        debugger;
+        for (var i = 0; i < 4; i++) {
+            $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+        }
+    }
+
+
+    $scope.sendTaxDocData = function () {
+        if ($scope.taxForm.signatureCode != $scope.signatureCode) {
+            alert("Invalid Signature Code \n please enter correct signature code.");
+        } else {
+            $http({
+                method: "POST",
+                url: "http://localhost:8080/api/auth/taxDocument/save",
+                data: angular.toJson($scope.taxForm),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }).then(_success, _error);
+        }
+    };
+
+    function _success(res) {
+        if (res.status == 200) {
+            console.log('res', res);
+            alert("Document Added");
+            $scope.resetForm();
+            $scope.userObject.userSignature = $scope.taxForm.signatureCode;
+            if ($scope.userObject.isSignSelect == 'N') {
+                // _assignUsersignature();
+            }
+            else {
+                alert("Form submit successfully");
+                $scope.resetForm();
+            }
+
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    function _assignUsersignature() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/users/update',
+            data: angular.toJson($scope.userObject),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(
+            function (res) { // success
+                var user = res.data;
+                localStorage.removeItem('userObject');
+                localStorage.setItem('userObject', JSON.stringify(user));
+                alert("Form submit successfully");
+                window.location.reload(true);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    $scope.resetForm = function (form) {
+        angular.copy({}, $scope.taxForm);
+    };
 
 });

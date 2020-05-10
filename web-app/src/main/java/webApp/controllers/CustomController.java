@@ -61,6 +61,14 @@ public class CustomController {
         return "login-signup/login";
     }
 
+    @RequestMapping(value = {"/user/taxDocument"}, method = RequestMethod.GET)
+    public String taxDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("USER_SESSION") != null) {
+            return "pannel/tax-document-form";
+        }
+        return "login-signup/login";
+    }
+
     @RequestMapping(value = {"/employee/signup"}, method = RequestMethod.GET)
     public String employeeRegistration(Model model) {
         return "login-signup/employee-registration";
