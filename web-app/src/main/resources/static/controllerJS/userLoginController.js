@@ -44,28 +44,37 @@ app.controller("userLoginController", function ($scope, $http) {
             user.oathToken = res.data.outhToken;
             console.log('user', user);
             localStorage.setItem('userObject', JSON.stringify(user));
-            window.location.href = 'http://localhost:8080/user/validate' + '?outhToken=' + res.data.outhToken;
+            _redirectToDashboard(res.data.outhToken, "U");
         } else {
             var employee = res.data.entityClass;
             employee.oathToken = res.data.outhToken;
             localStorage.setItem('empObject', JSON.stringify(employee));
-            window.location.href = 'http://localhost:8080/employee/validate' + '?outhToken=' + res.data.outhToken;
+            _redirectToDashboard(res.data.outhToken, "E");
         }
     }
 
-    function _redirectToDashboard(token) {
-        var temp = {
-            outhToken: token
-        };
+    function _redirectToDashboard(token, userType) {
+        var url = "";
+        if(userType === "U"){
+            url = "http://localhost:8080/api/auth/user/validate";
+        } else{
+            url = "http://localhost:8080/api/auth/employee/validate";
+        }
         $http({
-            method: "POST",
-            url: "http://localhost:8080/user/Dashboard",
-            params: angular.toJson(temp),
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        }).then(_success, _error);
+            method: 'POST',
+            url: url,
+            params: {outhToken: token}
+        }).then(_loginSuccess, _loginError);
+    }
+
+    function _loginSuccess(res) {
+        console.log("response", res.data.path);
+        window.location.href = res.data.path;
+    }
+
+    function _loginError(res) {
+        console.log("res", res);
+        alert("Error: " + status + ":");
     }
 
     function _error(res) {

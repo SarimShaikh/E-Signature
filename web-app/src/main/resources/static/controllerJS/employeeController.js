@@ -99,6 +99,10 @@ app.controller("employeeController", function ($scope, $http) {
         $scope.resetForm();
     }
 
+    $scope.logout = function () {
+        localStorage.clear();
+    };
+
     $scope.resetForm = function (form) {
         angular.copy({}, $scope.userForm);
     }
