@@ -37,4 +37,22 @@ public class LogInController {
         }
         return customResponseDto;
     }
+
+    @RequestMapping(value = {"/user/validate"}, method = RequestMethod.POST)
+    public String userValidate(@RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
+        String userSession = request.getSession().getAttribute("USER_SESSION").toString();
+        if (userSession != null && userSession.equals(outhToken)) {
+            return "pannel/user-dashboard";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/employee/validate"}, method = RequestMethod.POST)
+    public String empValidate(@RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
+        String empSession = request.getSession().getAttribute("EMP_SESSION").toString();
+        if (empSession != null && empSession.equals(outhToken)) {
+            return "pannel/emp-dashboard";
+        }
+        return "login-signup/login";
+    }
 }

@@ -29,7 +29,7 @@ app.controller("userController", function ($scope, $http) {
 
     _getUserDataByCode();
 
-    $scope.logout = function() {
+    $scope.logout = function () {
         localStorage.clear();
     };
 
@@ -150,19 +150,22 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.decForm.userCode = $scope.userObject.userCode;
     }
 
-    _generateSignature();
+    if ($scope.userObject.userSignature == null) {
+        _generateSignature();
 
-    function randomSignature(length, chars) {
-        var result = '';
-        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-        return result;
-    }
-
-    function _generateSignature() {
-        debugger;
-        for (var i = 0; i < 4; i++) {
-            $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+        function randomSignature(length, chars) {
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
         }
+
+        function _generateSignature() {
+            for (var i = 0; i < 4; i++) {
+                $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+            }
+        }
+    } else if ($scope.userObject.userSignature != null) {
+        $scope.decForm.signature = $scope.userObject.userSignature;
     }
 
 
@@ -185,7 +188,6 @@ angular.module("userApp").controller("declarationDocumentController", function (
     function _success(res) {
         debugger;
         if (res.status == 200) {
-            debugger;
             $scope.userObject.userSignature = $scope.decForm.signature;
             if ($scope.userObject.isSignSelect == 'N') {
                 _assignUsersignature();
@@ -204,7 +206,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     }
 
     function _assignUsersignature() {
-        $scope.userObject.isSignSelect='Y';
+        $scope.userObject.isSignSelect = 'Y';
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth/users/update',
@@ -268,19 +270,23 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         console.log("Admin ID----->" + $scope.taxForm.userCode + "------->" + $scope.signatureCode);
     }
 
-    _generateSignature();
+    if ($scope.userObject.userSignature == null) {
+        _generateSignature();
 
-    function randomSignature(length, chars) {
-        var result = '';
-        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-        return result;
-    }
-
-    function _generateSignature() {
-        debugger;
-        for (var i = 0; i < 4; i++) {
-            $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+        function randomSignature(length, chars) {
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
         }
+
+        function _generateSignature() {
+            for (var i = 0; i < 4; i++) {
+                $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+            }
+        }
+    } else if ($scope.userObject.userSignature != null) {
+               debugger;
+        $scope.taxForm.signature = $scope.userObject.userSignature;
     }
 
 
@@ -303,9 +309,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     function _success(res) {
         if (res.status == 200) {
             console.log('res', res);
-            $scope.userObject.userSignature = $scope.taxForm.signatureCode;
+            $scope.userObject.userSignature = $scope.taxForm.signature;
             if ($scope.userObject.isSignSelect == 'N') {
-                $scope.userObject.isSignSelect='Y';
                 _assignUsersignature();
             }
             else {
@@ -317,11 +322,11 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     }
 
     function _error(res) {
-        debugger;
         console.log('error', res);
     }
 
     function _assignUsersignature() {
+        $scope.userObject.isSignSelect = 'Y';
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth/users/update',

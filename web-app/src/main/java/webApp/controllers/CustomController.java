@@ -35,14 +35,6 @@ public class CustomController {
         return "login-signup/user-registration";
     }
 
-    @RequestMapping(value = {"/user/validate"}, method = RequestMethod.GET)
-    public String userValidate(@RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
-        String userSession = request.getSession().getAttribute("USER_SESSION").toString();
-        if (userSession != null && userSession.equals(outhToken)) {
-            return "pannel/user-dashboard";
-        }
-        return "login-signup/login";
-    }
 
     @RequestMapping(value = {"/user/dashboard"}, method = RequestMethod.GET)
     public String userdashboard(HttpServletRequest request) {
@@ -81,14 +73,6 @@ public class CustomController {
         return "login-signup/employee-registration";
     }
 
-    @RequestMapping(value = {"/employee/validate"}, method = RequestMethod.GET)
-    public String empValidate(Model model, @RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
-        String empSession = request.getSession().getAttribute("EMP_SESSION").toString();
-        if (empSession != null && empSession.equals(outhToken)) {
-            return "pannel/emp-dashboard";
-        }
-        return "login-signup/login";
-    }
 
     @RequestMapping(value = {"/employee/dashboard"}, method = RequestMethod.GET)
     public String empdashboard(HttpServletRequest request) {
