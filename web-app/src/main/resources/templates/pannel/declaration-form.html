@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control" required
                                        ng-model="decForm.bussinessAddress">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8" ng-if="userObject.isSignSelect == 'N'">
                                 <label>Select one time signature:</label>
                                 &nbsp &nbsp
                                 <label ng-repeat="sign in signatures">

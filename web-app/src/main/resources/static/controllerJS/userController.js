@@ -101,7 +101,7 @@ app.controller("userController", function ($scope, $http) {
     function _success(res) {
         if (res.data.responseCode == 201) {
             alert(res.data.message);
-            window.location.replace('http://localhost:8080/user/login');
+            window.location.replace('http://localhost:8080/login');
         }
     }
 
@@ -122,7 +122,6 @@ app.controller("userController", function ($scope, $http) {
 
 angular.module("userApp").controller("declarationDocumentController", function ($scope, $http) {
 
-    console.log("------------>Sarim");
     $scope.declarations = [];
     $scope.userObject = {};
     $scope.signatures = [];
@@ -149,7 +148,6 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.decForm.userCode = $scope.userObject.userCode;
-        console.log("Admin ID----->" + $scope.decForm.userCode + "------->" + $scope.signatureCode);
     }
 
     _generateSignature();
@@ -188,9 +186,9 @@ angular.module("userApp").controller("declarationDocumentController", function (
         debugger;
         if (res.status == 200) {
             debugger;
-            $scope.userObject.userSignature = $scope.decForm.signatureCode;
+            $scope.userObject.userSignature = $scope.decForm.signature;
             if ($scope.userObject.isSignSelect == 'N') {
-               // _assignUsersignature();
+                _assignUsersignature();
             }
             else {
                 alert("Form submit successfully");
@@ -206,6 +204,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     }
 
     function _assignUsersignature() {
+        $scope.userObject.isSignSelect='Y';
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth/users/update',
@@ -238,7 +237,6 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
 angular.module("userApp").controller("taxDocumentController", function ($scope, $http) {
 
-    console.log("------------>taxDocumentController");
     $scope.userObject = {};
     $scope.signatures = [];
     $scope.signatureCode = "";
@@ -305,11 +303,10 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     function _success(res) {
         if (res.status == 200) {
             console.log('res', res);
-            alert("Document Added");
-            $scope.resetForm();
             $scope.userObject.userSignature = $scope.taxForm.signatureCode;
             if ($scope.userObject.isSignSelect == 'N') {
-                // _assignUsersignature();
+                $scope.userObject.isSignSelect='Y';
+                _assignUsersignature();
             }
             else {
                 alert("Form submit successfully");

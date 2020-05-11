@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -146,10 +146,10 @@
                         <a href="#"><i class="fa fa-wpforms fa-fw"></i>Forms<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="declaration-form.html">Declaration Form</a>
+                                <a th:href="@{/user/declaration}">Declaration Form</a>
                             </li>
                             <li>
-                                <a href="#">Taxation Form</a>
+                                <a th:href="@{/user/taxDocument}">Taxation Form</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

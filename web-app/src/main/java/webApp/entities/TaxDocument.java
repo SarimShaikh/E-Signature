@@ -1,4 +1,5 @@
 package webApp.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
 import webApp.utils.UtilsClass;
@@ -219,6 +220,7 @@ public class TaxDocument extends EntityBase<String> implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "USER_CODE", nullable = false , insertable = false , updatable = false)
+    @JsonBackReference
     public User getUser() {
         return user;
     }
