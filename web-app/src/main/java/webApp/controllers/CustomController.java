@@ -2,7 +2,6 @@ package webApp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +24,7 @@ public class CustomController {
 
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
     public String userLogOut(HttpServletRequest request) {
-        if (request.getSession()!= null) {
+        if (request.getSession() != null) {
             request.getSession().invalidate();
         }
         return "login-signup/login";
@@ -36,10 +35,18 @@ public class CustomController {
         return "login-signup/user-registration";
     }
 
-    @RequestMapping(value = {"/user/dashboard"}, method = RequestMethod.GET)
-    public String userdashboard(@RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
+    @RequestMapping(value = {"/user/validate"}, method = RequestMethod.GET)
+    public String userValidate(@RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
         String userSession = request.getSession().getAttribute("USER_SESSION").toString();
         if (userSession != null && userSession.equals(outhToken)) {
+            return "pannel/user-dashboard";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/user/dashboard"}, method = RequestMethod.GET)
+    public String userdashboard(HttpServletRequest request) {
+        if (request.getSession().getAttribute("USER_SESSION") != null) {
             return "pannel/user-dashboard";
         }
         return "login-signup/login";
@@ -74,10 +81,18 @@ public class CustomController {
         return "login-signup/employee-registration";
     }
 
-    @RequestMapping(value = {"/employee/dashboard"}, method = RequestMethod.GET)
-    public String empdashboard(Model model, @RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
+    @RequestMapping(value = {"/employee/validate"}, method = RequestMethod.GET)
+    public String empValidate(Model model, @RequestParam(name = "outhToken") String outhToken, HttpServletRequest request) {
         String empSession = request.getSession().getAttribute("EMP_SESSION").toString();
         if (empSession != null && empSession.equals(outhToken)) {
+            return "pannel/emp-dashboard";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/employee/dashboard"}, method = RequestMethod.GET)
+    public String empdashboard(HttpServletRequest request) {
+        if (request.getSession().getAttribute("EMP_SESSION") != null) {
             return "pannel/emp-dashboard";
         }
         return "login-signup/login";

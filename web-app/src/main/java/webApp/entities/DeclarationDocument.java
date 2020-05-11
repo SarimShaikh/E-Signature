@@ -1,5 +1,6 @@
 package webApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
 import webApp.utils.UtilsClass;
@@ -120,7 +121,7 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
     }
 
     public void setPaperDeclareDate(String paperDeclareDate) {
-        this.paperDeclareDate = UtilsClass.dateformat(paperDeclareDate);
+        this.paperDeclareDate = paperDeclareDate;
     }
 
     @Basic
@@ -185,6 +186,7 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "USER_CODE", nullable = false , insertable = false , updatable = false)
+    @JsonBackReference
     public User getUser() {
         return user;
     }

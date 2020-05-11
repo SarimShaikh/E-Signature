@@ -3,7 +3,6 @@ package webApp.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
-import webApp.utils.UtilsClass;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,6 +31,7 @@ public class User extends EntityBase<String> implements Serializable {
     private String userAddress;
     private String isSignSelect;
     private Collection<DeclarationDocument> declarationDocuments;
+    private Collection<TaxDocument> taxDocuments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -144,14 +144,21 @@ public class User extends EntityBase<String> implements Serializable {
         this.isSignSelect = isSignSelect;
     }
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     public Collection<DeclarationDocument> getDeclarationDocuments() {
         return declarationDocuments;
     }
 
     public void setDeclarationDocuments(Collection<DeclarationDocument> declarationDocuments) {
         this.declarationDocuments = declarationDocuments;
+    }
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    public Collection<TaxDocument> getTaxDocuments() {
+        return taxDocuments;
+    }
+
+    public void setTaxDocuments(Collection<TaxDocument> taxDocuments) {
+        this.taxDocuments = taxDocuments;
     }
 }
