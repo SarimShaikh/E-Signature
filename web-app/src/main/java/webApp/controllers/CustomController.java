@@ -2,7 +2,6 @@ package webApp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +56,14 @@ public class CustomController {
     public String declarationForm(HttpServletRequest request) {
         if (request.getSession().getAttribute("USER_SESSION") != null) {
             return "pannel/declaration-form";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/user/taxDocument"}, method = RequestMethod.GET)
+    public String taxDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("USER_SESSION") != null) {
+            return "pannel/tax-document-form";
         }
         return "login-signup/login";
     }
