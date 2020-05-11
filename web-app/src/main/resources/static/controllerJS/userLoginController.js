@@ -18,13 +18,13 @@ app.controller("userLoginController", function ($scope, $http) {
 
     // HTTP POST/PUT methods for add/edit User
     $scope.sendData = function () {
-       console.log("$scope.loginForm", $scope.loginForm);
-       var url = "";
-       if($scope.loginForm.type == 'C'){
-           url = "http://localhost:8080/api/auth/login?userType=user";
-       } else {
-           url = "http://localhost:8080/api/auth/login?userType=emp";
-       }
+        console.log("$scope.loginForm", $scope.loginForm);
+        var url = "";
+        if ($scope.loginForm.type == 'C') {
+            url = "http://localhost:8080/api/auth/login?userType=user";
+        } else {
+            url = "http://localhost:8080/api/auth/login?userType=emp";
+        }
         $http({
             method: "POST",
             url: url,
@@ -45,12 +45,27 @@ app.controller("userLoginController", function ($scope, $http) {
             console.log('user', user);
             localStorage.setItem('userObject', JSON.stringify(user));
             window.location.href = 'http://localhost:8080/user/validate' + '?outhToken=' + res.data.outhToken;
-        } else{
+        } else {
             var employee = res.data.entityClass;
             employee.oathToken = res.data.outhToken;
             localStorage.setItem('empObject', JSON.stringify(employee));
             window.location.href = 'http://localhost:8080/employee/validate' + '?outhToken=' + res.data.outhToken;
         }
+    }
+
+    function _redirectToDashboard(token) {
+        var temp = {
+            outhToken: token
+        };
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/user/Dashboard",
+            params: angular.toJson(temp),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
     }
 
     function _error(res) {
