@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tax Document Form</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{../css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{../css/metisMenu.min.css}" href="../../static/css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link th:href="@{../css/timeline.css}" href="../../static/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{../css/startmin.css}" href="../../static/css/startmin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{../css/font-awesome.min.css}" href="../../static/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+
+    <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
+    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
+
+</head>
+<body>
+
+<div id="wrapper" ng-app="userApp" ng-controller="taxDocumentController">
+
+    <!-- Navigation -->
+    <div th:replace="pannel/fragments/usernavbar :: usernavbar">
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Tax Document Form</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-12">
+                    <form role="form" ng-submit="sendTaxDocData()">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Document name:</label>
+                                <input type="text" class="form-control" placeholder="Document name" required
+                                       ng-model="taxForm.documentName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>ABN No:</label>
+                                <input type="number" class="form-control" placeholder="ABN number" min="1" required
+                                       ng-model="taxForm.abnNumber">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Company name:</label>
+                                <input type="text" class="form-control" placeholder="Company name" required
+                                       ng-model="taxForm.companyName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Bussiness/Client name:</label>
+                                <input type="text" class="form-control" placeholder="Bussiness/Client name" required
+                                       ng-model="taxForm.bussinessClient">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Contact No:</label>
+                                <input type="number" class="form-control" placeholder="Contact number" min="8" required
+                                       ng-model="taxForm.contactNo">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Post Code:</label>
+                                <input type="number" class="form-control" placeholder="Post Code" min="4" required
+                                       ng-model="taxForm.postCode">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Bank name:</label>
+                                <input type="text" class="form-control" placeholder="Bank name" required
+                                       ng-model="taxForm.bankName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>BSB Number:</label>
+                                <input type="number" class="form-control" placeholder="Bsb Number" min="4" required
+                                       ng-model="taxForm.bsbNumber">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Account Number:</label>
+                                <input type="number" class="form-control" placeholder="Account Number" required
+                                       ng-model="taxForm.accountNo">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Signature Code:</label>
+                                <input type="text" class="form-control" placeholder="Signature code" required
+                                       ng-model="taxForm.signatureCode">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Bussiness Address:</label>
+                                <input type="text" class="form-control" placeholder="Bussiness Address" required
+                                       ng-model="taxForm.bussinessAddress">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Home Address:</label>
+                                <input type="text" class="form-control" placeholder="Home Address" required
+                                       ng-model="taxForm.homeAddress">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Select one time signature:</label>
+                                &nbsp &nbsp
+                                <label ng-repeat="sign in signatures">
+                                    <input name="sign" type="radio" value="{{sign}}" required
+                                           ng-model="taxForm.signature">{{sign}}
+                                    &nbsp
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Accept Declaration:</label>
+                                <label>
+                                    <input name="remember" type="checkbox" required>I declare:
+                                </label>
+                            </div>
+                            <div class="form-group col-md-12"></div>
+                            <div class="form-group col-md-1">
+                                <input type="submit" class="btn btn-success" value="SUBMIT">
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
+
+<!-- jQuery -->
+<script src="../../static/js/jquery.min.js" th:src="@{../js/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../../static/js/bootstrap.min.js" th:src="@{../js/bootstrap.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../../static/js/startmin.js" th:src="@{../js/startmin.js}"></script>
+
+
+</body>
+</html>

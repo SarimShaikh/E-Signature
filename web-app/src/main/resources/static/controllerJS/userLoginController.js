@@ -54,7 +54,7 @@ app.controller("userLoginController", function ($scope, $http) {
     }
 
     function _error(res) {
-        debugger
+        debugger;
         var data = res.data;
         var status = res.status;
         var header = res.header;
