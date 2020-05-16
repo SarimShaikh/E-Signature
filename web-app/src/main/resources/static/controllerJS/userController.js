@@ -144,7 +144,6 @@ angular.module("userApp").controller("declarationDocumentController", function (
     };
 
     if (localStorage.getItem('userObject')) {
-        debugger;
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.decForm.userCode = $scope.userObject.userCode;
@@ -186,7 +185,6 @@ angular.module("userApp").controller("declarationDocumentController", function (
     };
 
     function _success(res) {
-        debugger;
         if (res.status == 200) {
             $scope.userObject.userSignature = $scope.decForm.signature;
             if ($scope.userObject.isSignSelect == 'N') {
@@ -218,6 +216,8 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }).then(
             function (res) { // success
                 var user = res.data;
+                delete user.declarationDocuments;
+                delete user.taxDocuments;
                 localStorage.removeItem('userObject');
                 localStorage.setItem('userObject', JSON.stringify(user));
                 alert("Form submit successfully");
@@ -263,7 +263,6 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     };
 
     if (localStorage.getItem('userObject')) {
-        debugger;
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.taxForm.userCode = $scope.userObject.userCode;
@@ -338,6 +337,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }).then(
             function (res) { // success
                 var user = res.data;
+                delete user.taxDocuments;
+                delete user.declarationDocuments;
                 localStorage.removeItem('userObject');
                 localStorage.setItem('userObject', JSON.stringify(user));
                 alert("Form submit successfully");
