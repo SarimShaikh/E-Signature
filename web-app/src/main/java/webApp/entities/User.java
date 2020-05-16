@@ -144,7 +144,8 @@ public class User extends EntityBase<String> implements Serializable {
         this.isSignSelect = isSignSelect;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     public Collection<DeclarationDocument> getDeclarationDocuments() {
         return declarationDocuments;
     }
@@ -153,7 +154,8 @@ public class User extends EntityBase<String> implements Serializable {
         this.declarationDocuments = declarationDocuments;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     public Collection<TaxDocument> getTaxDocuments() {
         return taxDocuments;
     }
