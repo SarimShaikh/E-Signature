@@ -12,6 +12,9 @@ import webBase.service.ServiceBase;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
 /**
  * Created by Sarim on 5/1/2020.
@@ -40,7 +43,15 @@ public class UserService extends ServiceBase<User, Long> {
 
     public CustomResponseDto userLogIn(LoginrequestDto loginrequestDto) {
         CustomResponseDto customResponseDto = new CustomResponseDto();
-        User user = userRepository.findByUserEmailAndUserPassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
+        List<Object[]> userList = userRepository.findByUserEmailAndUserPassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
+        User user =new User();
+        if(userList.size()==1){
+            Object[] userDetails = userList.get(0);
+            user.setUserCode((Long) userDetails[0]);
+            user.setUserName(String.valueOf(userDetails[1]));
+            user.setUserEmail(String.valueOf(userDetails[2]));
+            user.setUserSignatureCode(String.valueOf(userDetails[3]));
+        }
         if (user != null) {
             customResponseDto.setResponseCode("200");
             customResponseDto.setStatus("Login");
