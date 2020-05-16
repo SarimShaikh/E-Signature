@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface UserRepository extends RepositoryBase<User, Long> {
 
-    @Query("SELECT u.userCode,u.userName,u.userEmail,u.userSignatureCode FROM User u WHERE u.userEmail = ?1 and u.userPassword = ?2")
+    @Query("SELECT u.userCode,u.userName,u.userEmail,u.userSignatureCode,u.isSignSelect FROM User u WHERE u.userEmail = ?1 and u.userPassword = ?2")
     List<Object[]> findByUserEmailAndUserPassword(String userEmail, String userPassword);
 
     User findByUserEmail(String email);

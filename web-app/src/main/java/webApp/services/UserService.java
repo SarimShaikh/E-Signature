@@ -51,14 +51,15 @@ public class UserService extends ServiceBase<User, Long> {
             user.setUserName(String.valueOf(userDetails[1]));
             user.setUserEmail(String.valueOf(userDetails[2]));
             user.setUserSignatureCode(String.valueOf(userDetails[3]));
-        }
+            user.setIsSignSelect(String.valueOf(userDetails[4]));
+
         if (user != null) {
             customResponseDto.setResponseCode("200");
             customResponseDto.setStatus("Login");
             customResponseDto.setMessage("Login Successfully!");
             customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
             customResponseDto.setEntityClass(user);
-        } else {
+        }} else {
             customResponseDto.setResponseCode("400");
             customResponseDto.setStatus("UnAuthorized");
             customResponseDto.setMessage("Invalid Email and Password!");

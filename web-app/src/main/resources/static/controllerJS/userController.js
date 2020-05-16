@@ -126,6 +126,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     $scope.userObject = {};
     $scope.signatures = [];
     $scope.signatureCode = "";
+    $scope.userName= "";
     $scope.decForm = {
         userCode: "",
         documentName: "",
@@ -147,6 +148,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.decForm.userCode = $scope.userObject.userCode;
+        $scope.userName= $scope.userObject.userName;
     }
 
     if ($scope.userObject.userSignature == null) {
@@ -160,7 +162,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
         function _generateSignature() {
             for (var i = 0; i < 4; i++) {
-                $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+                $scope.signatures.push($scope.userName+randomSignature(3, '0123456789'));
             }
         }
     } else if ($scope.userObject.userSignature != null) {
@@ -242,6 +244,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     $scope.userObject = {};
     $scope.signatures = [];
     $scope.signatureCode = "";
+    $scope.userName= "";
     $scope.taxForm = {
         userCode: "",
         documentName: "",
@@ -266,7 +269,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.taxForm.userCode = $scope.userObject.userCode;
-        console.log("Admin ID----->" + $scope.taxForm.userCode + "------->" + $scope.signatureCode);
+        $scope.userName = $scope.userObject.userName;
+        console.log("Admin ID----->" + $scope.taxForm.userCode);
     }
 
     if ($scope.userObject.userSignature == null) {
@@ -280,7 +284,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
 
         function _generateSignature() {
             for (var i = 0; i < 4; i++) {
-                $scope.signatures.push(randomSignature(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+                $scope.signatures.push($scope.userName+randomSignature(3, '0123456789'));
             }
         }
     } else if ($scope.userObject.userSignature != null) {
