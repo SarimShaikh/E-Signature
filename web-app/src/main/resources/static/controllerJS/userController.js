@@ -216,8 +216,12 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }).then(
             function (res) { // success
                 var user = res.data;
-                delete user.declarationDocuments;
-                delete user.taxDocuments;
+                const validKeys = [ 'userCode', 'userEmail', 'userSignatureCode','oathToken', 'userSignature', 'isSignSelect' ];
+                Object.keys(user).forEach(function(key){
+                    return validKeys.includes(key) || delete user[key];
+                });
+                const userObj = JSON.parse(localStorage.getItem('userObject'));
+                user.oathToken = userObj.oathToken;
                 localStorage.removeItem('userObject');
                 localStorage.setItem('userObject', JSON.stringify(user));
                 alert("Form submit successfully");
@@ -284,7 +288,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
             }
         }
     } else if ($scope.userObject.userSignature != null) {
-               debugger;
+        debugger;
         $scope.taxForm.signature = $scope.userObject.userSignature;
     }
 
@@ -337,8 +341,12 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }).then(
             function (res) { // success
                 var user = res.data;
-                delete user.taxDocuments;
-                delete user.declarationDocuments;
+                const validKeys = [ 'userCode', 'userEmail', 'userSignatureCode','oathToken', 'userSignature', 'isSignSelect' ];
+                Object.keys(user).forEach(function(key){
+                    return validKeys.includes(key) || delete user[key];
+                });
+                const userObj = JSON.parse(localStorage.getItem('userObject'));
+                user.oathToken = userObj.oathToken;
                 localStorage.removeItem('userObject');
                 localStorage.setItem('userObject', JSON.stringify(user));
                 alert("Form submit successfully");
