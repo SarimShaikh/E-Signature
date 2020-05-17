@@ -260,23 +260,49 @@
             clear: both;
         }
 
-        .invoice-info {
-            float: left;
+        .document-info {
+            float: right;
             margin: 25px 0 0 20px;
         }
 
-        .invoice-info>div {
+        .document-info > div {
             float: left;
         }
 
-        .invoice-info>div>span {
+        .document-info > div > span {
             display: block;
             min-width: 20px;
             min-height: 18px;
             margin-bottom: 3px;
         }
 
-        .invoice-info>div:last-child {
+        .document-info > div:last-child {
+            margin-left: 20px;
+        }
+
+        .document-info:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .invoice-info {
+            float: left;
+            margin: 25px 0 0 20px;
+        }
+
+        .invoice-info > div {
+            float: left;
+        }
+
+        .invoice-info > div > span {
+            display: block;
+            min-width: 20px;
+            min-height: 18px;
+            margin-bottom: 3px;
+        }
+
+        .invoice-info > div:last-child {
             margin-left: 20px;
         }
 
@@ -293,7 +319,7 @@
             text-align: right;
         }
 
-        #client-info>div {
+        #client-info > div {
             margin-bottom: 3px;
             min-width: 20px;
         }
@@ -449,13 +475,13 @@
             font-size: 16px;
         }
 
-        .terms>span {
+        .terms > span {
             display: inline-block;
             min-width: 20px;
             font-weight: bold;
         }
 
-        .terms>div {
+        .terms > div {
             margin-top: 10px;
             min-height: 50px;
             min-width: 50px;
@@ -515,18 +541,18 @@
             </div>
         </div>
 
-    </section>
+        <div class="document-info">
+            <div>
+                <span>Paper Declaration Date:</span>
+                <span>Document Period:</span>
+            </div>
 
-    <section class="invoice-info">
-        <div>
-            <span>Paper Declaration Date:</span>
-            <span>Document Period:</span>
+            <div>
+                <span>[(${issue_date})]</span>
+                <span>[(${due_date})]</span>
+            </div>
         </div>
 
-        <div>
-            <span>[(${issue_date})]</span>
-            <span>[(${due_date})]</span>
-        </div>
     </section>
 
     <div class="clearfix"></div>
@@ -567,11 +593,6 @@
     <section class="terms">
         <span>Signature</span>
         <div>[(${user_signature})]</div>
-    </section>
-
-    <section class="terms">
-        <span>Payement Details:</span>
-        <div>BSB Number:[(${bsb_number})]</div>
     </section>
 
 </div>
