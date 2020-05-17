@@ -1,6 +1,8 @@
 package webApp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import webApp.entities.DeclarationDocument;
+import webApp.entities.TaxDocument;
 import webApp.entities.User;
 import org.springframework.stereotype.Service;
 import webApp.entities.dto.CustomResponseDto;
@@ -10,9 +12,12 @@ import webApp.repositories.UserRepository;
 import webApp.utils.UtilsClass;
 import webBase.service.ServiceBase;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
@@ -36,16 +41,48 @@ public class UserService extends ServiceBase<User, Long> {
         return userRepository.findByUserCode(userCode);
     }
 
+    public User findPendingUserDocuments(Long userCode) {
+        User user = userRepository.findByUserCode(userCode);
+        List<DeclarationDocument> decList = user.getDeclarationDocuments().stream().collect(Collectors.toList());
+        List<TaxDocument> taxList = user.getTaxDocuments().stream().collect(Collectors.toList());
+
+        decList = decList.stream()
+                .filter(p -> p.getDocumentStatus().equals("P")).collect(Collectors.toList());
+
+        taxList = taxList.stream()
+                .filter(p -> p.getDocumentStatus().equals("P")).collect(Collectors.toList());
+
+        user.setDeclarationDocuments(decList);
+        user.setTaxDocuments(taxList);
+        return user;
+    }
+
+    public User findApprovedUserDocuments(Long userCode) {
+        User user = userRepository.findByUserCode(userCode);
+        List<DeclarationDocument> decList = user.getDeclarationDocuments().stream().collect(Collectors.toList());
+        List<TaxDocument> taxList = user.getTaxDocuments().stream().collect(Collectors.toList());
+
+        decList = decList.stream()
+                .filter(p -> p.getDocumentStatus().equals("A")).collect(Collectors.toList());
+
+        taxList = taxList.stream()
+                .filter(p -> p.getDocumentStatus().equals("A")).collect(Collectors.toList());
+
+        user.setDeclarationDocuments(decList);
+        user.setTaxDocuments(taxList);
+        return user;
+    }
+
     @Transactional
-    public User assignSignature(User user){
-       return entityManager.merge(user);
+    public User assignSignature(User user) {
+        return entityManager.merge(user);
     }
 
     public CustomResponseDto userLogIn(LoginrequestDto loginrequestDto) {
         CustomResponseDto customResponseDto = new CustomResponseDto();
         List<Object[]> userList = userRepository.findByUserEmailAndUserPassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
-        User user =new User();
-        if(userList.size()==1){
+        User user = new User();
+        if (userList.size() == 1) {
             Object[] userDetails = userList.get(0);
             user.setUserCode((Long) userDetails[0]);
             user.setUserName(String.valueOf(userDetails[1]));
@@ -53,13 +90,14 @@ public class UserService extends ServiceBase<User, Long> {
             user.setUserSignatureCode(String.valueOf(userDetails[3]));
             user.setIsSignSelect(String.valueOf(userDetails[4]));
 
-        if (user != null) {
-            customResponseDto.setResponseCode("200");
-            customResponseDto.setStatus("Login");
-            customResponseDto.setMessage("Login Successfully!");
-            customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
-            customResponseDto.setEntityClass(user);
-        }} else {
+            if (user != null) {
+                customResponseDto.setResponseCode("200");
+                customResponseDto.setStatus("Login");
+                customResponseDto.setMessage("Login Successfully!");
+                customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
+                customResponseDto.setEntityClass(user);
+            }
+        } else {
             customResponseDto.setResponseCode("400");
             customResponseDto.setStatus("UnAuthorized");
             customResponseDto.setMessage("Invalid Email and Password!");
