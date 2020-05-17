@@ -39,4 +39,9 @@ public class UtilsClass {
         return outputFormatter.format(localdate).toString();
 
     }
+
+    public static String getLocalDate() {
+
+        return java.time.LocalDate.now().toString();
+    }
 }
