@@ -35,6 +35,18 @@ public class UserController extends RestControllerBase<User, Long> {
         return userService.findByCode(userCode);
     }
 
+    @PostMapping("/getuserPendingdocuments")
+    @ResponseBody
+    public User getPendingDocumentsByUserCode(@RequestParam(name = "userCode") Long userCode) {
+        return userService.findPendingUserDocuments(userCode);
+    }
+
+    @PostMapping("/getuserApproveddocuments")
+    @ResponseBody
+    public User getApprovedDocumentsByUserCode(@RequestParam(name = "userCode") Long userCode) {
+        return userService.findApprovedUserDocuments(userCode);
+    }
+
     @PostMapping("/signup")
     public CustomResponseDto registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) throws Exception {
         return userService.save(userRegistrationDto);
