@@ -88,7 +88,8 @@ public class UserService extends ServiceBase<User, Long> {
             user.setUserName(String.valueOf(userDetails[1]));
             user.setUserEmail(String.valueOf(userDetails[2]));
             user.setUserSignatureCode(String.valueOf(userDetails[3]));
-            user.setIsSignSelect(String.valueOf(userDetails[4]));
+            user.setUserSignature(String.valueOf(userDetails[4]));
+            user.setIsSignSelect(String.valueOf(userDetails[5]));
 
             if (user != null) {
                 customResponseDto.setResponseCode("200");
