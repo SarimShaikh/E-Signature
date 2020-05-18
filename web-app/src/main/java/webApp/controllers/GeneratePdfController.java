@@ -21,7 +21,7 @@ public class GeneratePdfController {
 
     private final GeneratePdfServiceImpl documentGeneratorService;
 
-    @RequestMapping(value = "/html2pdf", method = RequestMethod.POST, produces = "application/pdf")
+    @RequestMapping(value = "/generate-pdf", method = RequestMethod.POST, produces = "application/pdf")
     public ResponseEntity html2pdf(@RequestBody Map<String, Object> data, @RequestParam(name = "docType") String docType) {
         InputStreamResource resource = documentGeneratorService.html2PdfGenerator(data, docType);
         if (resource != null) {

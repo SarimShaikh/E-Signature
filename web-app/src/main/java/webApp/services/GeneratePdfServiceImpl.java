@@ -30,7 +30,7 @@ import static java.util.logging.Level.SEVERE;
 public class GeneratePdfServiceImpl implements GeneratePdfService {
 
     static Logger logger = Logger.getLogger(GeneratePdfServiceImpl.class.getName());
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
     @Value("${local.path}")
     private String filePath;
 
@@ -42,12 +42,12 @@ public class GeneratePdfServiceImpl implements GeneratePdfService {
         String DEST = "";
 
         if (docType.equals("D")) {
-            html = templateEngine.process("invoice", context);
+            html = templateEngine.process("pdf-template/declarationPdf", context);
             logger.log(INFO, html);
             DEST = filePath + "DEC" + UtilsClass.getLocalDate() + ".pdf";
         }
-        else if (docType.equals("D")) {
-            html = templateEngine.process("invoice", context);
+        else if (docType.equals("T")) {
+            //html = templateEngine.process("invoice", context);
             logger.log(INFO, html);
             DEST = filePath + "TAX" + UtilsClass.getLocalDate() + ".pdf";
         }

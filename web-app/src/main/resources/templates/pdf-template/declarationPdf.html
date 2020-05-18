@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -528,16 +528,16 @@
         <div class="invoice-info">
             <div>
                 <span>Bussiness Address:</span>
-                <span>Client Name:</span>
+                <span>Bussiness Client:</span>
+                <span>User Name:</span>
                 <span>User Email:</span>
-                <span>User Mobile:</span>
             </div>
 
             <div>
-                <span>[(${bussiness_address})]</span>
-                <span>[(${agent_name})]</span>
-                <span>[(${user_email})]</span>
-                <span>[(${user_mobile})]</span>
+                <span>[(${bussinessAddress})]</span>
+                <span>[(${bussinessClient})]</span>
+                <span>[(${userName})]</span>
+                <span>[(${userEmail})]</span>
             </div>
         </div>
 
@@ -545,11 +545,13 @@
             <div>
                 <span>Paper Declaration Date:</span>
                 <span>Document Period:</span>
+                <span>Approved By:</span>
             </div>
 
             <div>
-                <span>[(${issue_date})]</span>
-                <span>[(${due_date})]</span>
+                <span>[(${paperDeclareDate})]</span>
+                <span>[(${documentPeriod})]</span>
+                <span>[(${approvedBy})]</span>
             </div>
         </div>
 
@@ -559,8 +561,8 @@
 
     <section id="invoice-title-number">
 
-        <span id="title">Declaration Document : </span>
-        <span id="number">[(${declaration_document})]</span>
+        <span id="title">Document Name: </span>
+        <span id="number">[(${documentName})]</span>
 
     </section>
 
@@ -579,9 +581,9 @@
 
             <tr>
                 <td></td>
-                <td>[(${agent_name})]</td>
-                <td>[(${abn_number})]</td>
-                <td>[(${bsb_number})]</td>
+                <td>[(${agentName})]</td>
+                <td>[(${abnNumber})]</td>
+                <td>[(${bsbNumber})]</td>
             </tr>
 
         </table>
@@ -592,7 +594,7 @@
 
     <section class="terms">
         <span>Signature</span>
-        <div>[(${user_signature})]</div>
+        <div>[(${signature})]</div>
     </section>
 
 </div>
