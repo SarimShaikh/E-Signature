@@ -194,7 +194,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
             }
             else {
                 alert("Form submit successfully");
-                $scope.resetForm();
+                window.location.reload(true);
             }
 
         }
@@ -322,7 +322,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
             }
             else {
                 alert("Form submit successfully");
-                $scope.resetForm();
+                window.location.reload(true);
             }
 
         }
@@ -407,7 +407,21 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
             params: {userCode: $scope.userCode}
         }).then(
             function (res) { // success
-                console.log(res.data);
+                console.log("res.data", res.data);
+                var declarations = res.data.declarationDocuments;
+                var taxDocuments = res.data.taxDocuments;
+
+                declarations.map(function (item, index) {
+                    declarations[index].userName = res.data.userName;
+                    declarations[index].userEmail = res.data.userEmail;
+                });
+
+                taxDocuments.map(function (item, index) {
+                    taxDocuments[index].userName = res.data.userName;
+                    taxDocuments[index].userEmail = res.data.userEmail;
+                });
+                $scope.declarations = declarations;
+                $scope.taxation = taxDocuments;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
