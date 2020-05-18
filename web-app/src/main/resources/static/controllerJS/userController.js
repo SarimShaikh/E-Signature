@@ -126,7 +126,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     $scope.userObject = {};
     $scope.signatures = [];
     $scope.signatureCode = "";
-    $scope.userName= "";
+    $scope.userName = "";
     $scope.decForm = {
         userCode: "",
         documentName: "",
@@ -148,7 +148,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
         $scope.signatureCode = $scope.userObject.userSignatureCode;
         $scope.decForm.userCode = $scope.userObject.userCode;
-        $scope.userName= $scope.userObject.userName;
+        $scope.userName = $scope.userObject.userName;
     }
 
     if ($scope.userObject.userSignature == null) {
@@ -162,7 +162,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
         function _generateSignature() {
             for (var i = 0; i < 4; i++) {
-                $scope.signatures.push($scope.userName+randomSignature(3, '0123456789'));
+                $scope.signatures.push($scope.userName + randomSignature(3, '0123456789'));
             }
         }
     } else if ($scope.userObject.userSignature != null) {
@@ -218,8 +218,8 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }).then(
             function (res) { // success
                 var user = res.data;
-                const validKeys = [ 'userCode', 'userEmail', 'userSignatureCode','oathToken', 'userSignature', 'isSignSelect' ];
-                Object.keys(user).forEach(function(key){
+                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'oathToken', 'userSignature', 'isSignSelect'];
+                Object.keys(user).forEach(function (key) {
                     return validKeys.includes(key) || delete user[key];
                 });
                 const userObj = JSON.parse(localStorage.getItem('userObject'));
@@ -248,7 +248,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     $scope.userObject = {};
     $scope.signatures = [];
     $scope.signatureCode = "";
-    $scope.userName= "";
+    $scope.userName = "";
     $scope.taxForm = {
         userCode: "",
         documentName: "",
@@ -288,7 +288,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
 
         function _generateSignature() {
             for (var i = 0; i < 4; i++) {
-                $scope.signatures.push($scope.userName+randomSignature(3, '0123456789'));
+                $scope.signatures.push($scope.userName + randomSignature(3, '0123456789'));
             }
         }
     } else if ($scope.userObject.userSignature != null) {
@@ -345,8 +345,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }).then(
             function (res) { // success
                 var user = res.data;
-                const validKeys = [ 'userCode', 'userEmail', 'userSignatureCode','oathToken', 'userSignature', 'isSignSelect' ];
-                Object.keys(user).forEach(function(key){
+                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'oathToken', 'userSignature', 'isSignSelect'];
+                Object.keys(user).forEach(function (key) {
                     return validKeys.includes(key) || delete user[key];
                 });
                 const userObj = JSON.parse(localStorage.getItem('userObject'));
@@ -384,20 +384,34 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
     }
     _getPendingDocumentsByUserCode();
 
-    $scope.sendDecDocData = function () {
-        if ($scope.decForm.signatureCode != $scope.signatureCode) {
-            alert("Invalid Signature Code \n please enter correct signature code.");
-        } else {
-            $http({
-                method: "POST",
-                url: "http://localhost:8080/api/auth/declaration/save",
-                data: angular.toJson($scope.decForm),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                }
-            }).then(_success, _error);
-        }
+    $scope.sendDecDocData = function (item) {
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "D"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    $scope.sendTaxDocData = function (item) {
+        debugger;
+        console.log("------->", item);
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "T"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
     };
 
     function _getPendingDocumentsByUserCode() {
@@ -431,7 +445,8 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
 
     function _success(res) {
         if (res.status == 200) {
-
+            $('#loading').hide();
+            alert("PDF generated!");
         }
     }
 
@@ -440,5 +455,12 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
         console.log('error', res);
     }
 
+    $(document).on('click','#btn',function(){
+        $('#loading').show();
+    });
+
+    $(window).load(function() {
+        $('#loading').hide();
+    });
 
 });

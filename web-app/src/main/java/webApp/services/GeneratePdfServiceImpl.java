@@ -38,7 +38,7 @@ public class GeneratePdfServiceImpl implements GeneratePdfService {
     public InputStreamResource html2PdfGenerator(Map<String, Object> data, String docType) {
         Context context = new Context();
         context.setVariables(data);
-        String html = ""; //templateEngine.process("invoice", context);
+        String html = "";
         String DEST = "";
 
         if (docType.equals("D")) {
