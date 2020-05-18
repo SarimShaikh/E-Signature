@@ -68,6 +68,14 @@ public class CustomController {
         return "login-signup/login";
     }
 
+    @RequestMapping(value = {"/user/pendingDocuments"}, method = RequestMethod.GET)
+    public String pendingDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("USER_SESSION") != null) {
+            return "pannel/pending-form";
+        }
+        return "login-signup/login";
+    }
+
     @RequestMapping(value = {"/employee/signup"}, method = RequestMethod.GET)
     public String employeeRegistration(Model model) {
         return "login-signup/employee-registration";

@@ -41,7 +41,7 @@ public class UserController extends RestControllerBase<User, Long> {
         return userService.findPendingUserDocuments(userCode);
     }
 
-    @PostMapping("/getuserApproveddocuments")
+    @PostMapping("/getuserApprovedocuments")
     @ResponseBody
     public User getApprovedDocumentsByUserCode(@RequestParam(name = "userCode") Long userCode) {
         return userService.findApprovedUserDocuments(userCode);

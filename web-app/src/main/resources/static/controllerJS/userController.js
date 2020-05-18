@@ -367,3 +367,64 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     };
 
 });
+
+
+//pending documents Controller
+
+angular.module("userApp").controller("pendingDocumentController", function ($scope, $http) {
+
+    $scope.declarations = [];
+    $scope.taxation = [];
+    $scope.userObject = {};
+    $scope.userCode = "";
+
+    if (localStorage.getItem('userObject')) {
+        $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
+        $scope.userCode = $scope.userObject.userCode;
+    }
+    _getPendingDocumentsByUserCode();
+
+    $scope.sendDecDocData = function () {
+        if ($scope.decForm.signatureCode != $scope.signatureCode) {
+            alert("Invalid Signature Code \n please enter correct signature code.");
+        } else {
+            $http({
+                method: "POST",
+                url: "http://localhost:8080/api/auth/declaration/save",
+                data: angular.toJson($scope.decForm),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }).then(_success, _error);
+        }
+    };
+
+    function _getPendingDocumentsByUserCode() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/users/getuserPendingdocuments',
+            params: {userCode: $scope.userCode}
+        }).then(
+            function (res) { // success
+                console.log(res.data);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+
+});

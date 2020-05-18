@@ -44,12 +44,12 @@ public class GeneratePdfServiceImpl implements GeneratePdfService {
         if (docType.equals("D")) {
             html = templateEngine.process("pdf-template/declarationPdf", context);
             logger.log(INFO, html);
-            DEST = filePath + "DEC" + UtilsClass.getLocalDate() + ".pdf";
+            DEST = filePath + "DEC-" + UtilsClass.getLocalDate() + ".pdf";
         }
         else if (docType.equals("T")) {
-            //html = templateEngine.process("invoice", context);
+            html = templateEngine.process("pdf-template/taxationPdf", context);
             logger.log(INFO, html);
-            DEST = filePath + "TAX" + UtilsClass.getLocalDate() + ".pdf";
+            DEST = filePath + "TAX-" + UtilsClass.getLocalDate() + ".pdf";
         }
 
         try {
