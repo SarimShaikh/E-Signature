@@ -152,7 +152,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     }
 
     if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
-        JSON.parse($scope.userObject.userSignature) == null) {
+        $scope.userObject.userSignature == "null") {
         _generateSignature();
 
         function randomSignature(length, chars) {
@@ -279,7 +279,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
     }
 
     if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
-        JSON.parse($scope.userObject.userSignature) == null) {
+        $scope.userObject.userSignature == "null") {
         _generateSignature();
 
         function randomSignature(length, chars) {
