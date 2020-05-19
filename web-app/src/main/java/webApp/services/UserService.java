@@ -80,24 +80,13 @@ public class UserService extends ServiceBase<User, Long> {
 
     public CustomResponseDto userLogIn(LoginrequestDto loginrequestDto) {
         CustomResponseDto customResponseDto = new CustomResponseDto();
-        List<Object[]> userList = userRepository.findByUserEmailAndUserPassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
-        User user = new User();
-        if (userList.size() == 1) {
-            Object[] userDetails = userList.get(0);
-            user.setUserCode((Long) userDetails[0]);
-            user.setUserName(String.valueOf(userDetails[1]));
-            user.setUserEmail(String.valueOf(userDetails[2]));
-            user.setUserSignatureCode(String.valueOf(userDetails[3]));
-            user.setUserSignature(String.valueOf(userDetails[4]));
-            user.setIsSignSelect(String.valueOf(userDetails[5]));
-
-            if (user != null) {
-                customResponseDto.setResponseCode("200");
-                customResponseDto.setStatus("Login");
-                customResponseDto.setMessage("Login Successfully!");
-                customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
-                customResponseDto.setEntityClass(user);
-            }
+        User user = userRepository.findByUserEmailAndUserPassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
+        if (user != null) {
+            customResponseDto.setResponseCode("200");
+            customResponseDto.setStatus("Login");
+            customResponseDto.setMessage("Login Successfully!");
+            customResponseDto.setOuthToken(UtilsClass.generateOauthkey());
+            customResponseDto.setEntityClass(user);
         } else {
             customResponseDto.setResponseCode("400");
             customResponseDto.setStatus("UnAuthorized");

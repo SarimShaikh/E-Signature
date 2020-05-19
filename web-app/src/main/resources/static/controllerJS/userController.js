@@ -151,8 +151,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.userName = $scope.userObject.userName;
     }
 
-    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
-        $scope.userObject.userSignature == "null") {
+    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature == null) {
         _generateSignature();
 
         function randomSignature(length, chars) {
@@ -208,6 +207,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
     function _assignUsersignature() {
         $scope.userObject.isSignSelect = 'Y';
+        debugger;
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth/users/update',
@@ -278,8 +278,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         console.log("Admin ID----->" + $scope.taxForm.userCode);
     }
 
-    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
-        $scope.userObject.userSignature == "null") {
+    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature == null) {
         _generateSignature();
 
         function randomSignature(length, chars) {
@@ -458,11 +457,11 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
         console.log('error', res);
     }
 
-    $(document).on('click','#btn',function(){
+    $(document).on('click', '#btn', function () {
         $('#loading').show();
     });
 
-    $(window).load(function() {
+    $(window).load(function () {
         $('#loading').hide();
     });
 
