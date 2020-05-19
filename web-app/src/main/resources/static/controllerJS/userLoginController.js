@@ -42,6 +42,8 @@ app.controller("userLoginController", function ($scope, $http) {
         if (res.data.responseCode == 200 && res.data.entityClass.userCode) {
             var user = res.data.entityClass;
             user.oathToken = res.data.outhToken;
+            user.declarationDocuments = [];
+            user.taxDocuments = [];
             console.log('user', user);
             localStorage.setItem('userObject', JSON.stringify(user));
             _redirectToDashboard(res.data.outhToken, "U");
