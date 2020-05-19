@@ -151,7 +151,8 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.userName = $scope.userObject.userName;
     }
 
-    if ($scope.userObject.userSignature == null) {
+    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
+        JSON.parse($scope.userObject.userSignature) == null) {
         _generateSignature();
 
         function randomSignature(length, chars) {
@@ -277,7 +278,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         console.log("Admin ID----->" + $scope.taxForm.userCode);
     }
 
-    if ($scope.userObject.userSignature == null) {
+    if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature &&
+        JSON.parse($scope.userObject.userSignature) == null) {
         _generateSignature();
 
         function randomSignature(length, chars) {
