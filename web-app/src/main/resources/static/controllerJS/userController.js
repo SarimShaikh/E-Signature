@@ -428,6 +428,7 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
                 declarations.map(function (item, index) {
                     declarations[index].userName = res.data.userName;
                     declarations[index].userEmail = res.data.userEmail;
+                    declarations[index].paperDeclareDate = new Date(declarations[index].paperDeclareDate).toISOString().slice(0, 10);
                 });
 
                 taxDocuments.map(function (item, index) {
