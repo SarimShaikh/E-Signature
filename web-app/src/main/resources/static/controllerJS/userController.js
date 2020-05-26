@@ -124,7 +124,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
     $scope.declarations = [];
     $scope.userObject = {};
-    $scope.signatures = [];
+    $scope.signature = "";
     $scope.signatureCode = "";
     $scope.userName = "";
     $scope.decForm = {
@@ -141,6 +141,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
         approvedBy: "NONE",
         signatureCode: "",
         signature: "",
+        signatureFonts: "",
         isActive: 1
     };
 
@@ -153,22 +154,30 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
     if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature == null) {
         _generateSignature();
-
-        function randomSignature(length, chars) {
-            var result = '';
-            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-            return result;
-        }
-
         function _generateSignature() {
-            for (var i = 0; i < 4; i++) {
-                $scope.signatures.push($scope.userName + randomSignature(3, '0123456789'));
-            }
+            $scope.signature = $scope.userName;
         }
+
     } else if ($scope.userObject.userSignature != null) {
         $scope.decForm.signature = $scope.userObject.userSignature;
     }
 
+    $scope.getSignatureFonts = function (item) {
+
+        switch (item) {
+            case 1:
+                $scope.decForm.signatureFonts = "font-family: 'Rancho', cursive;";
+                break;
+            case 2:
+                $scope.decForm.signatureFonts = "font-family: Brush Script MT, Brush Script Std, cursive;";
+                break;
+            case 3:
+                $scope.decForm.signatureFonts = "font-family: 'Euphoria Script', cursive;";
+                break;
+            case 4:
+                $scope.decForm.signatureFonts = "font-family: 'Pinyon Script', cursive;";
+        }
+    }
 
     $scope.sendDecDocData = function () {
         if ($scope.decForm.signatureCode != $scope.signatureCode) {
@@ -189,6 +198,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
     function _success(res) {
         if (res.status == 200) {
             $scope.userObject.userSignature = $scope.decForm.signature;
+            $scope.userObject.signatureFonts = $scope.decForm.signatureFonts;
             if ($scope.userObject.isSignSelect == 'N') {
                 _assignUsersignature();
             }
@@ -247,7 +257,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 angular.module("userApp").controller("taxDocumentController", function ($scope, $http) {
 
     $scope.userObject = {};
-    $scope.signatures = [];
+    $scope.signature = "";
     $scope.signatureCode = "";
     $scope.userName = "";
     $scope.taxForm = {
@@ -267,6 +277,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         approvedBy: "NONE",
         signatureCode: "",
         signature: "",
+        signatureFonts: "",
         isActive: 1
     };
 
@@ -280,23 +291,31 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
 
     if (Object.keys($scope.userObject).length > 0 && $scope.userObject.userSignature == null) {
         _generateSignature();
-
-        function randomSignature(length, chars) {
-            var result = '';
-            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-            return result;
-        }
-
         function _generateSignature() {
-            for (var i = 0; i < 4; i++) {
-                $scope.signatures.push($scope.userName + randomSignature(3, '0123456789'));
-            }
+            $scope.signature = $scope.userName;
         }
+
     } else if ($scope.userObject.userSignature != null) {
         debugger;
         $scope.taxForm.signature = $scope.userObject.userSignature;
     }
 
+    $scope.getSignatureFonts = function (item) {
+
+        switch (item) {
+            case 1:
+                $scope.taxForm.signatureFonts = "font-family: 'Rancho', cursive;";
+                break;
+            case 2:
+                $scope.taxForm.signatureFonts = "font-family: Brush Script MT, Brush Script Std, cursive;";
+                break;
+            case 3:
+                $scope.taxForm.signatureFonts = "font-family: 'Euphoria Script', cursive;";
+                break;
+            case 4:
+                $scope.taxForm.signatureFonts = "font-family: 'Pinyon Script', cursive;";
+        }
+    }
 
     $scope.sendTaxDocData = function () {
         if ($scope.taxForm.signatureCode != $scope.signatureCode) {
@@ -318,6 +337,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         if (res.status == 200) {
             console.log('res', res);
             $scope.userObject.userSignature = $scope.taxForm.signature;
+            $scope.userObject.signatureFonts = $scope.taxForm.signatureFonts;
             if ($scope.userObject.isSignSelect == 'N') {
                 _assignUsersignature();
             }

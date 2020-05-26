@@ -20,10 +20,16 @@
 
     <!-- Custom CSS -->
     <link th:href="@{../css/startmin.css}" href="../../static/css/startmin.css" rel="stylesheet">
+    <link th:href="@{../css/style.css}" href="../../static/css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link th:href="@{../css/font-awesome.min.css}" href="../../static/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
+
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Pinyon+Script&family=Rancho&display=swap"
+          th:href="@{https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Pinyon+Script&family=Rancho&display=swap}"
+          rel="stylesheet">
 
     <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
     <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
@@ -110,10 +116,29 @@
                             </div>
                             <div class="form-group col-md-8" ng-if="userObject.isSignSelect == 'N'">
                                 <label>Select one time signature:</label>
-                                &nbsp &nbsp
-                                <label ng-repeat="sign in signatures">
-                                    <input name="sign" type="radio" value="{{sign}}" required
-                                           ng-model="taxForm.signature">{{sign}}
+                                &nbsp
+                                <label>
+                                    <input name="sign" type="radio" value="{{signature}}" required
+                                           ng-model="taxForm.signature" ng-click="getSignatureFonts(1)">
+                                    <span class="p1">{{signature}}</span>
+                                    &nbsp
+                                </label>
+                                <label>
+                                    <input name="sign" type="radio" value="{{signature}}" required
+                                           ng-model="taxForm.signature" ng-click="getSignatureFonts(2)">
+                                    <span class="p2">{{signature}}</span>
+                                    &nbsp
+                                </label>
+                                <label>
+                                    <input name="sign" type="radio" value="{{signature}}" required
+                                           ng-model="taxForm.signature" ng-click="getSignatureFonts(3)">
+                                    <span class="p3">{{signature}}</span>
+                                    &nbsp
+                                </label>
+                                <label>
+                                    <input name="sign" type="radio" value="{{signature}}" required
+                                           ng-model="taxForm.signature" ng-click="getSignatureFonts(4)">
+                                    <span class="p4">{{signature}}</span>
                                     &nbsp
                                 </label>
                             </div>

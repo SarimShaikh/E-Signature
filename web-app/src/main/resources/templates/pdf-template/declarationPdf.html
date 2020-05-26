@@ -17,7 +17,7 @@
         /*! Invoice Templates @author: Invoicebus @email: info@invoicebus.com @web: https://invoicebus.com @version: 1.0.0 @updated: 2015-03-09 09:03:07 @license: Invoicebus */
         /* Reset styles */
         @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700&subset=cyrillic,cyrillic-ext,latin,greek-ext,greek,latin-ext,vietnamese");
-
+        @import url("https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Pinyon+Script&family=Rancho&display=swap");
         html,
         body,
         div,
@@ -511,10 +511,18 @@
          * the print styles (you can use !important to override styles)
          */
         @media print {
-            /* Here goes your print styles */
+             /* Here goes your print styles */
         }
+        .p2 {
+            font-family: Brush Script MT, Brush Script Std, cursive;
+        }
+
     </style>
 
+    <script>
+        var font = [(${signatureFonts})];
+        document.getElementById("sign-font").style.fontFamily = [(${signatureFonts})];
+    </script>
 </head>
 
 <body>
@@ -594,7 +602,7 @@
 
     <section class="terms">
         <span>Signature</span>
-        <div>[(${signature})]</div>
+        <div class="p2">[(${signature})]</div>
     </section>
 
 </div>
@@ -602,3 +610,4 @@
 </body>
 
 </html>
+

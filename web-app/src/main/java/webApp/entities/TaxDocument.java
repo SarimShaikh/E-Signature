@@ -1,4 +1,5 @@
 package webApp.entities;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import webApp.entities.audit.EntityBase;
@@ -29,6 +30,7 @@ public class TaxDocument extends EntityBase<String> implements Serializable {
     private String accountNo;
     private String signatureCode;
     private String signature;
+    private String signatureFonts;
     private String bussinessAddress;
     private String homeAddress;
     private String documentStatus;
@@ -169,6 +171,16 @@ public class TaxDocument extends EntityBase<String> implements Serializable {
     }
 
     @Basic
+    @Column(name = "SIGNATURE_FONT", nullable = false)
+    public String getSignatureFonts() {
+        return signatureFonts;
+    }
+
+    public void setSignatureFonts(String signatureFonts) {
+        this.signatureFonts = signatureFonts;
+    }
+
+    @Basic
     @Column(name = "BUSSINESS_ADDRESS", nullable = false)
     public String getBussinessAddress() {
         return bussinessAddress;
@@ -219,7 +231,7 @@ public class TaxDocument extends EntityBase<String> implements Serializable {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "USER_CODE", nullable = false , insertable = false , updatable = false)
+    @JoinColumn(name = "USER_CODE", nullable = false, insertable = false, updatable = false)
     @JsonBackReference
     public User getUser() {
         return user;

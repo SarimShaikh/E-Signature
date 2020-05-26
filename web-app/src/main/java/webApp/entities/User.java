@@ -28,6 +28,7 @@ public class User extends EntityBase<String> implements Serializable {
     private String userDob;
     private String userSignatureCode;
     private String userSignature;
+    private String signatureFonts;
     private String userAddress;
     private String isSignSelect;
     private Collection<DeclarationDocument> declarationDocuments;
@@ -112,6 +113,16 @@ public class User extends EntityBase<String> implements Serializable {
 
     public void setUserSignatureCode(String userSignatureCode) {
         this.userSignatureCode = userSignatureCode;
+    }
+
+    @Basic
+    @Column(name = "SIGNATURE_FONT", nullable = false)
+    public String getSignatureFonts() {
+        return signatureFonts;
+    }
+
+    public void setSignatureFonts(String signatureFonts) {
+        this.signatureFonts = signatureFonts;
     }
 
     @Basic

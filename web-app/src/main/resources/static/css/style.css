@@ -3,6 +3,7 @@
     height: 220px;
     overflow: auto;
 }
+
 .table-wrapper-scroll-y {
     display: block;
 }
@@ -23,6 +24,26 @@
 #loading-image {
     position: absolute;
     top: 37%;
-    left:52%;
+    left: 52%;
     z-index: 100;
+}
+
+.p1 {
+    font-family: 'Rancho', cursive;
+    font-size: 20px;
+}
+
+.p2 {
+    font-family: Brush Script MT, Brush Script Std, cursive;
+    font-size: 20px;
+}
+
+.p3 {
+    font-family: 'Euphoria Script', cursive;
+    font-size: 20px;
+}
+
+.p4 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 20px;
 }

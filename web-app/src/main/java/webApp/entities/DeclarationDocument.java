@@ -30,6 +30,7 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
     private String approvedBy;
     private String signatureCode;
     private String signature;
+    private String signatureFonts;
     private Byte isActive;
     private User user;
 
@@ -172,6 +173,16 @@ public class DeclarationDocument extends EntityBase<String> implements Serializa
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    @Basic
+    @Column(name = "SIGNATURE_FONT", nullable = false)
+    public String getSignatureFonts() {
+        return signatureFonts;
+    }
+
+    public void setSignatureFonts(String signatureFonts) {
+        this.signatureFonts = signatureFonts;
     }
 
     @Basic
