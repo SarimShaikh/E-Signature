@@ -86,6 +86,9 @@ app.controller("userController", function ($scope, $http) {
         }).then(
             function (res) { // success
                 $scope.users = res.data;
+                if (res.data.isSignSelect == 'Y' && document.getElementById("signature")) {
+                    document.getElementById("signature").style = res.data.signatureFonts;
+                }
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
@@ -102,6 +105,9 @@ app.controller("userController", function ($scope, $http) {
         if (res.data.responseCode == 201) {
             alert(res.data.message);
             window.location.replace('http://localhost:8080/login');
+        }
+        else if (res.data.responseCode == 401) {
+            alert(res.data.message);
         }
     }
 
@@ -160,6 +166,10 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
     } else if ($scope.userObject.userSignature != null) {
         $scope.decForm.signature = $scope.userObject.userSignature;
+        if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
+            var userObj = JSON.parse(localStorage.getItem('userObject'));
+            document.getElementById("decSignature").style = userObj.signatureFonts;
+        }
     }
 
     $scope.getSignatureFonts = function (item) {
@@ -204,6 +214,10 @@ angular.module("userApp").controller("declarationDocumentController", function (
             }
             else {
                 alert("Form submit successfully");
+                if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
+                    var userObj = JSON.parse(localStorage.getItem('userObject'));
+                    document.getElementById("decSignature").style = userObj.signatureFonts;
+                }
                 window.location.reload(true);
             }
 
@@ -229,7 +243,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }).then(
             function (res) { // success
                 var user = res.data;
-                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'oathToken', 'userSignature', 'isSignSelect'];
+                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'signatureFonts', 'oathToken', 'userSignature', 'isSignSelect'];
                 Object.keys(user).forEach(function (key) {
                     return validKeys.includes(key) || delete user[key];
                 });
@@ -296,8 +310,11 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }
 
     } else if ($scope.userObject.userSignature != null) {
-        debugger;
         $scope.taxForm.signature = $scope.userObject.userSignature;
+        if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
+            var userObj = JSON.parse(localStorage.getItem('userObject'));
+            document.getElementById("taxSignature").style = userObj.signatureFonts;
+        }
     }
 
     $scope.getSignatureFonts = function (item) {
@@ -343,6 +360,10 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
             }
             else {
                 alert("Form submit successfully");
+                if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
+                    var userObj = JSON.parse(localStorage.getItem('userObject'));
+                    document.getElementById("taxSignature").style = userObj.signatureFonts;
+                }
                 window.location.reload(true);
             }
 
@@ -366,7 +387,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }).then(
             function (res) { // success
                 var user = res.data;
-                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'oathToken', 'userSignature', 'isSignSelect'];
+                const validKeys = ['userCode', 'userEmail', 'userSignatureCode','signatureFonts', 'oathToken', 'userSignature', 'isSignSelect'];
                 Object.keys(user).forEach(function (key) {
                     return validKeys.includes(key) || delete user[key];
                 });
