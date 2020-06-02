@@ -78,6 +78,16 @@ app.controller("userController", function ($scope, $http) {
         );
     };
 
+    function _subStrAfterChars(str, char, pos)
+    {
+        if(pos=='b')
+            return str.substring(str.indexOf(char) + 1);
+        else if(pos=='a')
+            return str.substring(0, str.indexOf(char));
+        else
+            return str;
+    }
+
     function _getUserDataByCode() {
         $http({
             method: 'POST',
@@ -87,7 +97,9 @@ app.controller("userController", function ($scope, $http) {
             function (res) { // success
                 $scope.users = res.data;
                 if (res.data.isSignSelect == 'Y' && document.getElementById("signature")) {
-                    document.getElementById("signature").style = res.data.signatureFonts;
+                    var font = _subStrAfterChars(res.data.signatureFonts,'="','b').replace('>', '');
+                    var finalSignFont = font.replace(/"/g, '');
+                    document.getElementById("signature").style = finalSignFont;
                 }
             },
             function (res) { // error
@@ -168,26 +180,27 @@ angular.module("userApp").controller("declarationDocumentController", function (
         $scope.decForm.signature = $scope.userObject.userSignature;
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
-            document.getElementById("decSignature").style = userObj.signatureFonts;
+            var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+            var finalSignFont = font.replace(/"/g, '');
+            document.getElementById("decSignature").style = finalSignFont;
         }
     }
 
     $scope.getSignatureFonts = function (item) {
-
         switch (item) {
             case 1:
-                $scope.decForm.signatureFonts = "font-family: 'Rancho', cursive;";
+                $scope.decForm.signatureFonts = '<p style="font-family:' + ' ' + "'Rancho', cursive;" + '"' + ">";
                 break;
             case 2:
-                $scope.decForm.signatureFonts = "font-family: Brush Script MT, Brush Script Std, cursive;";
+                $scope.decForm.signatureFonts = '<p style="font-family:' + ' ' + "'Sacramento', cursive;" + '"' + ">";
                 break;
             case 3:
-                $scope.decForm.signatureFonts = "font-family: 'Euphoria Script', cursive;";
+                $scope.decForm.signatureFonts = '<p style="font-family:' + ' ' + "'Euphoria Script', cursive;" + '"' + ">";
                 break;
             case 4:
-                $scope.decForm.signatureFonts = "font-family: 'Pinyon Script', cursive;";
+                $scope.decForm.signatureFonts = '<p style="font-family:' + ' ' + "'Pinyon Script', cursive;" + '"' + ">";
         }
-    }
+    };
 
     $scope.sendDecDocData = function () {
         if ($scope.decForm.signatureCode != $scope.signatureCode) {
@@ -205,6 +218,16 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }
     };
 
+    function _subStrAfterChars(str, char, pos)
+    {
+        if(pos=='b')
+            return str.substring(str.indexOf(char) + 1);
+        else if(pos=='a')
+            return str.substring(0, str.indexOf(char));
+        else
+            return str;
+    }
+
     function _success(res) {
         if (res.status == 200) {
             $scope.userObject.userSignature = $scope.decForm.signature;
@@ -216,7 +239,9 @@ angular.module("userApp").controller("declarationDocumentController", function (
                 alert("Form submit successfully");
                 if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
                     var userObj = JSON.parse(localStorage.getItem('userObject'));
-                    document.getElementById("decSignature").style = userObj.signatureFonts;
+                    var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+                    var finalSignFont = font.replace(/"/g, '');
+                    document.getElementById("decSignature").style = finalSignFont;
                 }
                 window.location.reload(true);
             }
@@ -313,26 +338,27 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         $scope.taxForm.signature = $scope.userObject.userSignature;
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
-            document.getElementById("taxSignature").style = userObj.signatureFonts;
+            var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+            var finalSignFont = font.replace(/"/g, '');
+            document.getElementById("taxSignature").style = finalSignFont;
         }
     }
 
     $scope.getSignatureFonts = function (item) {
-
         switch (item) {
             case 1:
-                $scope.taxForm.signatureFonts = "font-family: 'Rancho', cursive;";
+                $scope.taxForm.signatureFonts = '<p style="font-family:' + ' ' + "'Rancho', cursive;" + '"' + ">";
                 break;
             case 2:
-                $scope.taxForm.signatureFonts = "font-family: Brush Script MT, Brush Script Std, cursive;";
+                $scope.taxForm.signatureFonts = '<p style="font-family:' + ' ' + "'Sacramento', cursive;" + '"' + ">";
                 break;
             case 3:
-                $scope.taxForm.signatureFonts = "font-family: 'Euphoria Script', cursive;";
+                $scope.taxForm.signatureFonts = '<p style="font-family:' + ' ' + "'Euphoria Script', cursive;" + '"' + ">";
                 break;
             case 4:
-                $scope.taxForm.signatureFonts = "font-family: 'Pinyon Script', cursive;";
+                $scope.taxForm.signatureFonts = '<p style="font-family:' + ' ' + "'Pinyon Script', cursive;" + '"' + ">";
         }
-    }
+    };
 
     $scope.sendTaxDocData = function () {
         if ($scope.taxForm.signatureCode != $scope.signatureCode) {
@@ -350,6 +376,16 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }
     };
 
+    function _subStrAfterChars(str, char, pos)
+    {
+        if(pos=='b')
+            return str.substring(str.indexOf(char) + 1);
+        else if(pos=='a')
+            return str.substring(0, str.indexOf(char));
+        else
+            return str;
+    }
+
     function _success(res) {
         if (res.status == 200) {
             console.log('res', res);
@@ -362,7 +398,9 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
                 alert("Form submit successfully");
                 if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
                     var userObj = JSON.parse(localStorage.getItem('userObject'));
-                    document.getElementById("taxSignature").style = userObj.signatureFonts;
+                    var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+                    var finalSignFont = font.replace(/"/g, '');
+                    document.getElementById("taxSignature").style = finalSignFont;
                 }
                 window.location.reload(true);
             }
