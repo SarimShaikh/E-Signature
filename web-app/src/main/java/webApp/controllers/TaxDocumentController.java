@@ -1,10 +1,13 @@
 package webApp.controllers;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import webApp.entities.TaxDocument;
+import webApp.entities.dto.DocumentDto;
 import webApp.services.TaxDocumentService;
 import webBase.controller.RestControllerBase;
+
+import java.util.List;
 
 
 /**
@@ -17,7 +20,23 @@ import webBase.controller.RestControllerBase;
 @RequestMapping("/api/auth/taxDocument")
 public class TaxDocumentController extends RestControllerBase<TaxDocument, Long> {
 
+    private TaxDocumentService taxDocumentService;
+
+    @Autowired
     public TaxDocumentController(TaxDocumentService service) {
         super(service);
+        taxDocumentService = service;
+    }
+
+    @PostMapping("/getAllPendingTaxdocuments")
+    @ResponseBody
+    public List<DocumentDto> getAllPendingDocuments() {
+        return taxDocumentService.getAllPendingTaxation();
+    }
+
+    @PostMapping("/getAllApprovedTaxdocuments")
+    @ResponseBody
+    public List<DocumentDto> getAllApprovedDocuments() {
+        return taxDocumentService.getAllApprovedTaxation();
     }
 }

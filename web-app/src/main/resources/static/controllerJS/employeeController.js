@@ -108,3 +108,286 @@ app.controller("employeeController", function ($scope, $http) {
     }
 
 });
+
+
+//pending EmpDocuments Controller
+angular.module("empApp").controller("pendingEmpDocumentController", function ($scope, $http) {
+
+    $scope.declarations = [];
+    $scope.taxation = [];
+    $scope.empName = "";
+
+    if (localStorage.getItem('empObject')) {
+        $scope.empObject = JSON.parse(localStorage.getItem('empObject'));
+        $scope.empName = $scope.empObject.employeeName;
+        console.log("EMP Name----->" + $scope.empObject.employeeName);
+    }
+
+    _getAllPendingDecDocuments();
+    _getAllPendingTaxDocuments();
+
+    $scope.sendDecDocData = function (item) {
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "D"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    $scope.sendTaxDocData = function (item) {
+        debugger;
+        console.log("------->", item);
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "T"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    //update Declaration for Approval
+    $scope.approvedDecDoc = function (item) {
+        item.documentStatus="A";
+        item.approvedBy = $scope.empName;
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/api/auth/declaration/update",
+            data: angular.toJson(item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(function (res) { // success
+                console.log("res.data", res.data);
+                if (res.status == 200) {
+                    window.location.reload(true);
+                }
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            });
+
+    };
+
+    //update Declaration for Approval
+    $scope.approvedTaxDoc = function (item) {
+        item.documentStatus="A";
+        item.approvedBy = $scope.empName;
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/api/auth/taxDocument/update",
+            data: angular.toJson(item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(function (res) { // success
+                console.log("res.data", res.data);
+                if (res.status == 200) {
+                    window.location.reload(true);
+                }
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            });
+
+    };
+
+    function _getAllPendingDecDocuments() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllPendingDecdocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                var declarations = [];
+
+                res.data.forEach(function (item, index) {
+                    var tempItem = item;
+                    tempItem.entity.userName = item.userName;
+                    tempItem.entity.userEmail = item.userEmail;
+                    declarations.push(tempItem.entity);
+                });
+
+                $scope.declarations = declarations;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getAllPendingTaxDocuments() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllPendingTaxdocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                var taxation = [];
+
+                res.data.forEach(function (item, index) {
+                    var tempItem = item;
+                    tempItem.entity.userName = item.userName;
+                    tempItem.entity.userEmail = item.userEmail;
+                    taxation.push(tempItem.entity);
+                });
+
+                $scope.taxation = taxation;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+            $('#loading').hide();
+            alert("PDF generated!");
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    $(document).on('click', '#btn', function () {
+        $('#loading').show();
+    });
+
+    $(window).load(function () {
+        $('#loading').hide();
+    });
+
+
+});
+
+//Approved EmpDocuments Controller
+angular.module("empApp").controller("approvedEmpDocumentController", function ($scope, $http) {
+
+    $scope.declarations = [];
+    $scope.taxation = [];
+    $scope.empName = "";
+
+    if (localStorage.getItem('empObject')) {
+        $scope.empObject = JSON.parse(localStorage.getItem('empObject'));
+        $scope.empName = $scope.empObject.employeeName;
+        console.log("EMP Name----->" + $scope.empObject.employeeName);
+    }
+
+    _getAllApprovedDecDocuments();
+    _getAllApprovedTaxDocuments();
+
+    $scope.sendDecDocData = function (item) {
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "D"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    $scope.sendTaxDocData = function (item) {
+        debugger;
+        console.log("------->", item);
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "T"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    function _getAllApprovedDecDocuments() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllApprovedDecdocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                var declarations = [];
+
+                res.data.forEach(function (item, index) {
+                    var tempItem = item;
+                    tempItem.entity.userName = item.userName;
+                    tempItem.entity.userEmail = item.userEmail;
+                    declarations.push(tempItem.entity);
+                });
+
+                $scope.declarations = declarations;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getAllApprovedTaxDocuments() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllApprovedTaxdocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                var taxation = [];
+
+                res.data.forEach(function (item, index) {
+                    var tempItem = item;
+                    tempItem.entity.userName = item.userName;
+                    tempItem.entity.userEmail = item.userEmail;
+                    taxation.push(tempItem.entity);
+                });
+
+                $scope.taxation = taxation;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+            $('#loading').hide();
+            alert("PDF generated!");
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    $(document).on('click', '#btn', function () {
+        $('#loading').show();
+    });
+
+    $(window).load(function () {
+        $('#loading').hide();
+    });
+
+
+});

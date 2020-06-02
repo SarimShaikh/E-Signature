@@ -97,4 +97,20 @@ public class CustomController {
         }
         return "login-signup/login";
     }
+
+    @RequestMapping(value = {"/employee/pendingDocuments"}, method = RequestMethod.GET)
+    public String EmppendingDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("EMP_SESSION") != null) {
+            return "pannel/emp-pending-form";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/employee/approvedDocuments"}, method = RequestMethod.GET)
+    public String EmpApprovedDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("EMP_SESSION") != null) {
+            return "pannel/emp-approved-form";
+        }
+        return "login-signup/login";
+    }
 }
