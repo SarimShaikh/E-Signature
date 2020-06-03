@@ -33,6 +33,7 @@ public class User extends EntityBase<String> implements Serializable {
     private String isSignSelect;
     private Collection<DeclarationDocument> declarationDocuments;
     private Collection<TaxDocument> taxDocuments;
+    private Collection<RejectedDocument> rejectedDocuments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -174,4 +175,18 @@ public class User extends EntityBase<String> implements Serializable {
     public void setTaxDocuments(Collection<TaxDocument> taxDocuments) {
         this.taxDocuments = taxDocuments;
     }
+
+
+    // Getting Setting Rejected Documents
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    public Collection<RejectedDocument> getRejectedDocuments() {
+        return rejectedDocuments;
+    }
+
+    public void setRejectedDocuments(Collection<RejectedDocument> rejectedDocuments) {
+        this.rejectedDocuments = rejectedDocuments;
+    }
+
 }

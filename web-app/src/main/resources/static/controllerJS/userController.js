@@ -545,3 +545,101 @@ angular.module("userApp").controller("pendingDocumentController", function ($sco
     });
 
 });
+
+
+//Approved documents Controller
+
+angular.module("userApp").controller("approvedDocumentController", function ($scope, $http) {
+
+    $scope.declarations = [];
+    $scope.taxation = [];
+    $scope.userObject = {};
+    $scope.userCode = "";
+
+    if (localStorage.getItem('userObject')) {
+        $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
+        $scope.userCode = $scope.userObject.userCode;
+    }
+    _getPendingDocumentsByUserCode();
+
+    $scope.sendDecDocData = function (item) {
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "D"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    $scope.sendTaxDocData = function (item) {
+        debugger;
+        console.log("------->", item);
+        $http({
+            method: "POST",
+            url: "http://localhost:8080/generate-pdf",
+            data: angular.toJson(item),
+            params: {docType: "T"},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(_success, _error);
+
+    };
+
+    function _getPendingDocumentsByUserCode() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/users/getuserApprovedocuments',
+            params: {userCode: $scope.userCode}
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                var declarations = res.data.declarationDocuments;
+                var taxDocuments = res.data.taxDocuments;
+
+                declarations.map(function (item, index) {
+                    declarations[index].userName = res.data.userName;
+                    declarations[index].userEmail = res.data.userEmail;
+                    declarations[index].paperDeclareDate = new Date(declarations[index].paperDeclareDate).toISOString().slice(0, 10);
+                });
+
+                taxDocuments.map(function (item, index) {
+                    taxDocuments[index].userName = res.data.userName;
+                    taxDocuments[index].userEmail = res.data.userEmail;
+                });
+                $scope.declarations = declarations;
+                $scope.taxation = taxDocuments;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+            $('#loading').hide();
+            alert("PDF generated!");
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    $(document).on('click', '#btn', function () {
+        $('#loading').show();
+    });
+
+    $(window).load(function () {
+        $('#loading').hide();
+    });
+
+});
