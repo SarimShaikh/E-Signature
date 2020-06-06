@@ -35,4 +35,10 @@ public interface DeclarationDocumentRepository extends RepositoryBase<Declaratio
             "FROM users users JOIN declaration_document document ON(users.`USER_CODE` = document.`USER_CODE`) AND \n" +
             "document.`DOCUMENT_STATUS` ='A'", nativeQuery = true)
     List<Map<String, Object>> getAllApprovedDeclarationDocuments();
+
+    @Query(value = "SELECT COUNT(*) FROM declaration_document WHERE document_status='A'", nativeQuery = true)
+    Long getAllApprovedDecDocumentsCount();
+
+    @Query(value = "SELECT COUNT(*) FROM declaration_document WHERE document_status='P'", nativeQuery = true)
+    Long getAllPendingDecDocumentsCount();
 }

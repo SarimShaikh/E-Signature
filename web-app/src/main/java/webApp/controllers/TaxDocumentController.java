@@ -39,4 +39,17 @@ public class TaxDocumentController extends RestControllerBase<TaxDocument, Long>
     public List<DocumentDto> getAllApprovedDocuments() {
         return taxDocumentService.getAllApprovedTaxation();
     }
+
+    @PostMapping("/getAllApprovedTaxdocumentsCount")
+    @ResponseBody
+    public long getAllApprovedDocumentsCount() {
+        return taxDocumentService.getApprovedTaxDocCount();
+    }
+
+    @PostMapping("/getAllPendingTaxdocumentsCount")
+    @ResponseBody
+    public long getAllPendingDocumentsCount() {
+        return taxDocumentService.getPendingTaxDocCount();
+    }
+
 }

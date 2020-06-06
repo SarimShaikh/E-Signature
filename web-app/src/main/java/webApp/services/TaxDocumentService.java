@@ -104,4 +104,14 @@ public class TaxDocumentService extends ServiceBase<TaxDocument, Long> {
         }
         return beanList;
     }
+
+    public long getApprovedTaxDocCount(){
+        long approvedDocsCount = taxDocumentRepository.getAllApprovedTaxDocumentsCount();
+        return approvedDocsCount;
+    }
+
+    public long getPendingTaxDocCount(){
+        long pendingDocsCount = taxDocumentRepository.getAllPendingTaxDocumentsCount();
+        return pendingDocsCount;
+    }
 }

@@ -32,7 +32,7 @@
 </head>
 <body>
 
-<div id="wrapper">
+<div id="wrapper" ng-app="empApp" ng-controller="employeeController">
 
     <!-- Navigation -->
     <div th:replace="pannel/fragments/employeenavbar :: employeenavbar">
@@ -80,7 +80,7 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">32</div>
+                                    <div class="huge">{{ (employeeApprovedDecCount == undefined && employeeApprovedTaxCount == undefined) ? 0 : (employeeApprovedDecCount + employeeApprovedTaxCount) }}</div>
                                     <div>Approved Forms</div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">0</div>
+                                    <div class="huge">{{ (employeePendingDecCount == undefined && employeePendingTaxCount == undefined) ? 0 : (employeePendingDecCount + employeePendingTaxCount) }}</div>
                                     <div>Pending Forms</div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">20</div>
-                                    <div>Pending Requests</div>
+                                    <div>Rejected Forms</div>
                                 </div>
                             </div>
                         </div>
