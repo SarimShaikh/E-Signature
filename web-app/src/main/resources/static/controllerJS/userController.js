@@ -178,6 +178,8 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
     } else if ($scope.userObject.userSignature != null) {
         $scope.decForm.signature = $scope.userObject.userSignature;
+        $scope.decForm.signatureFonts = $scope.userObject.signatureFonts;
+
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
             var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
@@ -336,6 +338,8 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
 
     } else if ($scope.userObject.userSignature != null) {
         $scope.taxForm.signature = $scope.userObject.userSignature;
+        $scope.taxForm.signatureFonts = $scope.userObject.signatureFonts;
+
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
             var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');

@@ -89,7 +89,7 @@
                                     <td>{{declaration.documentPeriod}}</td>
                                     <td><input type="button" id="btn" ng-click="approvedDecDoc(declaration)" value="Approved"
                                                class="btn btn-primary"></td>
-                                    <td><input type="button" id="btn" value="Reject"
+                                    <td><input type="button" id="btn" ng-click="rejectDecDoc(declaration)" value="Reject"
                                                class="btn btn-primary"></td>
                                     <td><input type="button" id="btn" ng-click="sendDecDocData(declaration)" value="Print Pdf"
                                                class="btn btn-primary"></td>
@@ -137,7 +137,7 @@
                                     <td>{{tax.postCode}}</td>
                                     <td><input type="button" id="btn" ng-click="approvedTaxDoc(tax)" value="Approved"
                                                class="btn btn-primary"></td>
-                                    <td><input type="button" id="btn" value="Reject"
+                                    <td><input type="button" id="btn" ng-click="rejectTaxDoc(tax)" value="Reject"
                                                class="btn btn-primary"></td>
                                     <td><input type="button" id="btn" ng-click="sendTaxDocData(tax)" value="Print Pdf"
                                                class="btn btn-primary"></td>

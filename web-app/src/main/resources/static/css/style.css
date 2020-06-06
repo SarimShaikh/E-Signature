@@ -8,6 +8,18 @@
     display: block;
 }
 
+.large-logo{
+    width: 20%;
+    height: 25%;
+    margin-top: 40px;
+    margin-bottom: -35px;
+}
+
+.header-logo{
+    width:120px;
+    height:30px;
+}
+
 #loading {
     width: 100%;
     height: 100%;

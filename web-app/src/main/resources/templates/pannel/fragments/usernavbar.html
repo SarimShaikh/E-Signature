@@ -37,7 +37,9 @@
 <div th:fragment="usernavbar" ng-app="userApp" ng-controller="userController">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="user-dashboard.html">ActiveTax Services</a>
+            <a class="navbar-brand" href="user-dashboard.html">
+                <img class="header-logo" th:src="@{../images/logo.png}" src="../../static/images/logo.png">
+            </a>
         </div>
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -136,7 +138,8 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a th:href="@{/user/dashboard}" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a th:href="@{/user/dashboard}" class="active"><i class="fa fa-dashboard fa-fw"></i>
+                            Dashboard</a>
                     </li>
                     <li>
                         <a th:href="@{/user/profile}"><i class="fa fa-wrench fa-fw"></i> Profile Setting</a>

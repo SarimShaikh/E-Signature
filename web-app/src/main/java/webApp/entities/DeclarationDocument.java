@@ -2,6 +2,7 @@ package webApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import webApp.entities.audit.DocumentListener;
 import webApp.entities.audit.EntityBase;
 import webApp.utils.UtilsClass;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "declaration_document")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, DocumentListener.class})
 public class DeclarationDocument extends EntityBase<String> implements Serializable {
 
     private Long documentCode;

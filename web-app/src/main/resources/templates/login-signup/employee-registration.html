@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,19 +14,25 @@
 
     <!-- Custom CSS -->
     <link href="../../static/css/startmin.css" th:href="@{../css/startmin.css}" rel="stylesheet">
-
+    <link th:href="@{../css/style.css}" href="../../static/css/style.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../../static/css/font-awesome.min.css" th:href="@{../css/font-awesome.min.css}" rel="stylesheet"
           type="text/css">
 
     <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
-    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/employeeController.js}"></script>
+    <script src="../../static/controllerJS/userController.js"
+            th:src="@{../controllerJS/employeeController.js}"></script>
 
 </head>
 <body class="login-signup-body">
 
 <div class="container">
     <div class="row">
+        <center>
+            <div>
+                <img class="large-logo" th:src="@{../images/logo.png}" src="../../static/images/logo.png">
+            </div>
+        </center>
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default" id="login-body">
                 <div class="panel-heading" style="border-radius: 10px;">
@@ -40,22 +46,29 @@
                                        min="1" ng-model="empForm.employeeCode">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Employee name" type="text" autofocus required ng-model="empForm.employeeName">
+                                <input class="form-control" placeholder="Employee name" type="text" autofocus required
+                                       ng-model="empForm.employeeName">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" type="email" autofocus required ng-model="empForm.employeeEmail" >
+                                <input class="form-control" placeholder="E-mail" type="email" autofocus required
+                                       ng-model="empForm.employeeEmail">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" type="password" autofocus required ng-model="empForm.employeePassword">
-                                <span class ="error" ng-show="empForm.employeePassword && empForm.employeePassword.length < 8">Password length should be 8 or greater</span>
+                                <input class="form-control" placeholder="Password" type="password" autofocus required
+                                       ng-model="empForm.employeePassword">
+                                <span class="error"
+                                      ng-show="empForm.employeePassword && empForm.employeePassword.length < 8">Password length should be 8 or greater</span>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Confirm Password" ng-model="empForm.confirmEmployeePassword" type="password" autofocus
+                                <input class="form-control" placeholder="Confirm Password"
+                                       ng-model="empForm.confirmEmployeePassword" type="password" autofocus
                                        required>
-                                <span class ="error" ng-show="empForm.employeePassword && empForm.confirmEmployeePassword && empForm.employeePassword != empForm.confirmEmployeePassword">Password and Confirm Password field must be same</span>
+                                <span class="error"
+                                      ng-show="empForm.employeePassword && empForm.confirmEmployeePassword && empForm.employeePassword != empForm.confirmEmployeePassword">Password and Confirm Password field must be same</span>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Contact" type="text" autofocus required ng-model="empForm.employeeContact">
+                                <input class="form-control" placeholder="Contact" type="text" autofocus required
+                                       ng-model="empForm.employeeContact">
                             </div>
 
                             <!-- Change this to a button or input when using this as a form -->

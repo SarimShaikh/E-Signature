@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface TaxDocumentRepository extends RepositoryBase<TaxDocument, Long> {
 
-    @Query(value = "SELECT users.`USER_NAME` userName , users.`USER_EMAIL` userEmail , taxDoc.TAX_DOCUMENT_CODE taxDocumentCode,\n" +
+    @Query(value = "SELECT users.`USER_NAME` userName , users.`USER_EMAIL` userEmail , taxDoc.DOCUMENT_CODE taxDocumentCode,\n" +
             "taxDoc.`USER_CODE` userCode , taxDoc.`DOCUMENT_NAME` documentName , taxDoc.`ABN_NUMBER` abnNumber , \n" +
             "taxDoc.`COMPANY_NAME` companyName , taxDoc.`BUSSINESS_CLIENT` bussinessClient , taxDoc.`CONTACT_NO` contactNo,\n" +
             "taxDoc.`POST_CODE` postCode , taxDoc.`BANK_NAME` bankName , taxDoc.`BSB_NUMBER` bsbNumber , taxDoc.`ACCOUNT_NO` accountNo ,\n" +
@@ -24,7 +24,7 @@ public interface TaxDocumentRepository extends RepositoryBase<TaxDocument, Long>
             "FROM users users JOIN tax_document taxDoc ON(users.`USER_CODE` = taxDoc.`USER_CODE`) AND taxDoc.`DOCUMENT_STATUS` ='P'", nativeQuery = true)
     List<Map<String, Object>> getAllPendingTaxDocuments();
 
-    @Query(value = "SELECT users.`USER_NAME` userName , users.`USER_EMAIL` userEmail , taxDoc.TAX_DOCUMENT_CODE taxDocumentCode,\n" +
+    @Query(value = "SELECT users.`USER_NAME` userName , users.`USER_EMAIL` userEmail , taxDoc.DOCUMENT_CODE taxDocumentCode,\n" +
             "taxDoc.`USER_CODE` userCode , taxDoc.`DOCUMENT_NAME` documentName , taxDoc.`ABN_NUMBER` abnNumber , \n" +
             "taxDoc.`COMPANY_NAME` companyName , taxDoc.`BUSSINESS_CLIENT` bussinessClient , taxDoc.`CONTACT_NO` contactNo,\n" +
             "taxDoc.`POST_CODE` postCode , taxDoc.`BANK_NAME` bankName , taxDoc.`BSB_NUMBER` bsbNumber , taxDoc.`ACCOUNT_NO` accountNo ,\n" +

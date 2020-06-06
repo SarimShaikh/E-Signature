@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by Syed Asher Ahmed on 6/3/2020.
  */
 @Entity
-@Table(name = "rejected_document_log")
+@Table(name = "reject_document_log")
 @EntityListeners(AuditingEntityListener.class)
 public class RejectedDocument extends EntityBase<String> implements Serializable {
 

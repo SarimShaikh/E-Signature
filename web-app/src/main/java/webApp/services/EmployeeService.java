@@ -9,6 +9,8 @@ import webApp.repositories.EmployeeRepository;
 import webApp.utils.UtilsClass;
 import webBase.service.ServiceBase;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by Sarim on 5/5/2020.
  */
@@ -16,11 +18,13 @@ import webBase.service.ServiceBase;
 public class EmployeeService extends ServiceBase<Employee, Long> {
 
     private EmployeeRepository employeeRepository;
+    private HttpSession session;
 
     @Autowired
-    public EmployeeService(EmployeeRepository repository) {
+    public EmployeeService(EmployeeRepository repository , HttpSession session1) {
         super(repository);
         employeeRepository = repository;
+        session = session1;
     }
 
     public Employee getEmployeeByCode(Long empCode){
@@ -31,6 +35,7 @@ public class EmployeeService extends ServiceBase<Employee, Long> {
         CustomResponseDto customResponseDto = new CustomResponseDto();
         Employee employee = employeeRepository.findByEmployeeEmailAndEmployeePassword(loginrequestDto.getEmail(), loginrequestDto.getPassword());
         if (employee != null) {
+            session.setAttribute("EMP_NAME",employee.getEmployeeName());
             customResponseDto.setResponseCode("200");
             customResponseDto.setStatus("Login");
             customResponseDto.setMessage("Login Successfully!");

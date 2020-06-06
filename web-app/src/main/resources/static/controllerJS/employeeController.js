@@ -177,10 +177,30 @@ angular.module("empApp").controller("pendingEmpDocumentController", function ($s
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
             });
-
     };
 
-    //update Declaration for Approval
+    //Delete Declaration for Rejection
+    $scope.rejectDecDoc = function (item) {
+        $http({
+            method: "DELETE",
+            url: "http://localhost:8080/api/auth/declaration/delete",
+            data: angular.toJson(item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(function (res) { // success
+                console.log("res.data", res.data);
+                if (res.status == 200) {
+                    window.location.reload(true);
+                }
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            });
+    };
+
+    //update Taxation for Approval
     $scope.approvedTaxDoc = function (item) {
         item.documentStatus="A";
         item.approvedBy = $scope.empName;
@@ -201,7 +221,27 @@ angular.module("empApp").controller("pendingEmpDocumentController", function ($s
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
             });
+    };
 
+    //Delete Taxaction for Rejection
+    $scope.rejectTaxDoc = function (item) {
+        $http({
+            method: "DELETE",
+            url: "http://localhost:8080/api/auth/taxDocument/delete",
+            data: angular.toJson(item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(function (res) { // success
+                console.log("res.data", res.data);
+                if (res.status == 200) {
+                    window.location.reload(true);
+                }
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            });
     };
 
     function _getAllPendingDecDocuments() {

@@ -2,6 +2,7 @@ package webApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import webApp.entities.audit.DocumentListener;
 import webApp.entities.audit.EntityBase;
 import webApp.utils.UtilsClass;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tax_document")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, DocumentListener.class})
 public class TaxDocument extends EntityBase<String> implements Serializable {
     private Long taxDocumentCode;
     private Long userCode;
@@ -41,7 +42,7 @@ public class TaxDocument extends EntityBase<String> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TAX_DOCUMENT_CODE", nullable = false)
+    @Column(name = "DOCUMENT_CODE", nullable = false)
     public Long getTaxDocumentCode() {
         return taxDocumentCode;
     }
