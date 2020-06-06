@@ -35,4 +35,11 @@ public interface TaxDocumentRepository extends RepositoryBase<TaxDocument, Long>
             "taxDoc.`MODIFIED_BY` modifiedBy , taxDoc.`MODIFIED_DATE` modifiedDate\n" +
             "FROM users users JOIN tax_document taxDoc ON(users.`USER_CODE` = taxDoc.`USER_CODE`) AND taxDoc.`DOCUMENT_STATUS` ='A'", nativeQuery = true)
     List<Map<String, Object>> getAllApprovedTaxDocuments();
+
+    @Query(value = "SELECT COUNT(*) FROM tax_document WHERE document_status='A'", nativeQuery = true)
+    Long getAllApprovedTaxDocumentsCount();
+
+    @Query(value = "SELECT COUNT(*) FROM tax_document WHERE document_status='P'", nativeQuery = true)
+    Long getAllPendingTaxDocumentsCount();
+
 }

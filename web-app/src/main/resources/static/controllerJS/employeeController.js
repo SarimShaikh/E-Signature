@@ -8,6 +8,10 @@ app.controller("employeeController", function ($scope, $http) {
 
 
     $scope.employees = [];
+    $scope.employeePendingDecCount = '';
+    $scope.employeePendingTaxCount = '';
+    $scope.employeeApprovedDecCount = '';
+    $scope.employeeApprovedTaxCount = '';
     $scope.empForm = {
         employeeCode: "",
         employeeName: "",
@@ -18,13 +22,20 @@ app.controller("employeeController", function ($scope, $http) {
     };
 
     if (localStorage.getItem('empObject')) {
-        debugger;
         $scope.empObject = JSON.parse(localStorage.getItem('empObject'));
         $scope.empForm.employeeCode = $scope.empObject.employeeCode;
         console.log("EMP ID----->" + $scope.empForm.employeeCode);
     }
 
     _getEmpDataByCode();
+
+    // Getting Pending Documents Count
+    _getEmpPendingDecForms();
+    _getEmpPendingTaxForms();
+
+    // Getting Approved Documents Count
+    _getEmpApprovedDecForms();
+    _getEmpApprovedTaxForms();
 
     $scope.sendData = function () {
         if (_validateEmail($scope.empForm.employeeEmail)) {
@@ -64,7 +75,6 @@ app.controller("employeeController", function ($scope, $http) {
     };
 
     function _getEmpDataByCode() {
-        debugger;
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/auth/employee/getemployee',
@@ -72,6 +82,62 @@ app.controller("employeeController", function ($scope, $http) {
         }).then(
             function (res) { // success
                 $scope.employees = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getEmpPendingDecForms() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllPendingDecdocumentsCount'
+        }).then(
+            function (res) { // success
+                $scope.employeePendingDecCount = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getEmpApprovedDecForms() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllApprovedDecdocumentsCount'
+        }).then(
+            function (res) { // success
+                $scope.employeeApprovedDecCount = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getEmpPendingTaxForms() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllPendingTaxdocumentsCount'
+        }).then(
+            function (res) { // success
+                $scope.employeePendingTaxCount = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getEmpApprovedTaxForms() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllApprovedTaxdocumentsCount'
+        }).then(
+            function (res) { // success
+                $scope.employeeApprovedTaxCount = res.data;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
@@ -141,7 +207,6 @@ angular.module("empApp").controller("pendingEmpDocumentController", function ($s
     };
 
     $scope.sendTaxDocData = function (item) {
-        debugger;
         console.log("------->", item);
         $http({
             method: "POST",
@@ -306,7 +371,6 @@ angular.module("empApp").controller("approvedEmpDocumentController", function ($
     };
 
     $scope.sendTaxDocData = function (item) {
-        debugger;
         console.log("------->", item);
         $http({
             method: "POST",

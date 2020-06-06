@@ -97,4 +97,14 @@ public class DeclarationDocumentService extends ServiceBase<DeclarationDocument,
         }
         return beanList;
     }
+
+    public long getApprovedDecDocCount(){
+        long approvedDocsCount = declarationDocumentRepository.getAllApprovedDecDocumentsCount();
+        return approvedDocsCount;
+    }
+
+    public long getPendingDecDocCount(){
+        long pendingDocsCount = declarationDocumentRepository.getAllPendingDecDocumentsCount();
+        return pendingDocsCount;
+    }
 }

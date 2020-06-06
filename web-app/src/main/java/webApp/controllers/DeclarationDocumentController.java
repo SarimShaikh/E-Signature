@@ -36,4 +36,16 @@ public class DeclarationDocumentController extends RestControllerBase<Declaratio
     public List<DocumentDto> getAllApprovedDocuments() {
         return declarationDocumentService.getAllApprovedDeclaration();
     }
+
+    @PostMapping("/getAllApprovedDecdocumentsCount")
+    @ResponseBody
+    public long getAllApprovedDocumentsCount() {
+        return declarationDocumentService.getApprovedDecDocCount();
+    }
+
+    @PostMapping("/getAllPendingDecdocumentsCount")
+    @ResponseBody
+    public long getAllPendingDocumentsCount() {
+        return declarationDocumentService.getPendingDecDocCount();
+    }
 }
