@@ -1,11 +1,12 @@
 package webApp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webApp.entities.RejectedDocument;
 import webApp.services.RejectedDocumentService;
 import webBase.controller.RestControllerBase;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Syed Asher Ahmed on 6/3/2020.
@@ -21,6 +22,12 @@ public class RejectedDocumentController extends RestControllerBase<RejectedDocum
     public RejectedDocumentController(RejectedDocumentService service) {
         super(service);
         rejectedDocumentService = service;
+    }
+
+    @GetMapping("/getAllRejectDocuments")
+    @ResponseBody
+    public List<Map<String, Object>> getAllPendingDocuments() {
+        return rejectedDocumentService.getRejectedDocuments();
     }
 
 }

@@ -84,6 +84,14 @@ public class CustomController {
         return "login-signup/login";
     }
 
+    @RequestMapping(value = {"/user/rejectDocuments"}, method = RequestMethod.GET)
+    public String rejectDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("USER_SESSION") != null) {
+            return "pannel/rejected-form";
+        }
+        return "login-signup/login";
+    }
+
     @RequestMapping(value = {"/employee/signup"}, method = RequestMethod.GET)
     public String employeeRegistration(Model model) {
         return "login-signup/employee-registration";
@@ -118,6 +126,14 @@ public class CustomController {
     public String EmpApprovedDocumentForm(HttpServletRequest request) {
         if (request.getSession().getAttribute("EMP_SESSION") != null) {
             return "pannel/emp-approved-form";
+        }
+        return "login-signup/login";
+    }
+
+    @RequestMapping(value = {"/employee/rejectDocuments"}, method = RequestMethod.GET)
+    public String EmpRejectDocumentForm(HttpServletRequest request) {
+        if (request.getSession().getAttribute("EMP_SESSION") != null) {
+            return "pannel/emp-reject-form";
         }
         return "login-signup/login";
     }

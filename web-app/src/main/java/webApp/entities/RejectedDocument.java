@@ -24,9 +24,11 @@ public class RejectedDocument extends EntityBase<String> implements Serializable
     private String bsbNumber;
     private String signatureCode;
     private String signature;
+    private String signatureFonts;
     private String bankName;
     private String accountNo;
     private String rejectBy;
+    private String documentType;
     private User user;
 
     @Id
@@ -138,6 +140,26 @@ public class RejectedDocument extends EntityBase<String> implements Serializable
 
     public void setRejectBy(String rejectBy) {
         this.rejectBy = rejectBy;
+    }
+
+    @Basic
+    @Column(name = "SIGNATURE_FONT", nullable = false)
+    public String getSignatureFonts() {
+        return signatureFonts;
+    }
+
+    public void setSignatureFonts(String signatureFonts) {
+        this.signatureFonts = signatureFonts;
+    }
+
+    @Basic
+    @Column(name = "DOCUMENT_TYPE", nullable = false)
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
     }
 
     @ManyToOne(optional = false)

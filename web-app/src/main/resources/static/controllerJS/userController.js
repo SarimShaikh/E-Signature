@@ -78,11 +78,10 @@ app.controller("userController", function ($scope, $http) {
         );
     };
 
-    function _subStrAfterChars(str, char, pos)
-    {
-        if(pos=='b')
+    function _subStrAfterChars(str, char, pos) {
+        if (pos == 'b')
             return str.substring(str.indexOf(char) + 1);
-        else if(pos=='a')
+        else if (pos == 'a')
             return str.substring(0, str.indexOf(char));
         else
             return str;
@@ -97,7 +96,7 @@ app.controller("userController", function ($scope, $http) {
             function (res) { // success
                 $scope.users = res.data;
                 if (res.data.isSignSelect == 'Y' && document.getElementById("signature")) {
-                    var font = _subStrAfterChars(res.data.signatureFonts,'="','b').replace('>', '');
+                    var font = _subStrAfterChars(res.data.signatureFonts, '="', 'b').replace('>', '');
                     var finalSignFont = font.replace(/"/g, '');
                     document.getElementById("signature").style = finalSignFont;
                 }
@@ -182,7 +181,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
 
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
-            var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+            var font = _subStrAfterChars(userObj.signatureFonts, '="', 'b').replace('>', '');
             var finalSignFont = font.replace(/"/g, '');
             document.getElementById("decSignature").style = finalSignFont;
         }
@@ -220,11 +219,10 @@ angular.module("userApp").controller("declarationDocumentController", function (
         }
     };
 
-    function _subStrAfterChars(str, char, pos)
-    {
-        if(pos=='b')
+    function _subStrAfterChars(str, char, pos) {
+        if (pos == 'b')
             return str.substring(str.indexOf(char) + 1);
-        else if(pos=='a')
+        else if (pos == 'a')
             return str.substring(0, str.indexOf(char));
         else
             return str;
@@ -241,7 +239,7 @@ angular.module("userApp").controller("declarationDocumentController", function (
                 alert("Form submit successfully");
                 if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("decSignature")) {
                     var userObj = JSON.parse(localStorage.getItem('userObject'));
-                    var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+                    var font = _subStrAfterChars(userObj.signatureFonts, '="', 'b').replace('>', '');
                     var finalSignFont = font.replace(/"/g, '');
                     document.getElementById("decSignature").style = finalSignFont;
                 }
@@ -342,7 +340,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
 
         if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
             var userObj = JSON.parse(localStorage.getItem('userObject'));
-            var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+            var font = _subStrAfterChars(userObj.signatureFonts, '="', 'b').replace('>', '');
             var finalSignFont = font.replace(/"/g, '');
             document.getElementById("taxSignature").style = finalSignFont;
         }
@@ -380,11 +378,10 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }
     };
 
-    function _subStrAfterChars(str, char, pos)
-    {
-        if(pos=='b')
+    function _subStrAfterChars(str, char, pos) {
+        if (pos == 'b')
             return str.substring(str.indexOf(char) + 1);
-        else if(pos=='a')
+        else if (pos == 'a')
             return str.substring(0, str.indexOf(char));
         else
             return str;
@@ -402,7 +399,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
                 alert("Form submit successfully");
                 if ($scope.userObject.isSignSelect == 'Y' && document.getElementById("taxSignature")) {
                     var userObj = JSON.parse(localStorage.getItem('userObject'));
-                    var font = _subStrAfterChars(userObj.signatureFonts,'="','b').replace('>', '');
+                    var font = _subStrAfterChars(userObj.signatureFonts, '="', 'b').replace('>', '');
                     var finalSignFont = font.replace(/"/g, '');
                     document.getElementById("taxSignature").style = finalSignFont;
                 }
@@ -429,7 +426,7 @@ angular.module("userApp").controller("taxDocumentController", function ($scope, 
         }).then(
             function (res) { // success
                 var user = res.data;
-                const validKeys = ['userCode', 'userEmail', 'userSignatureCode','signatureFonts', 'oathToken', 'userSignature', 'isSignSelect'];
+                const validKeys = ['userCode', 'userEmail', 'userSignatureCode', 'signatureFonts', 'oathToken', 'userSignature', 'isSignSelect'];
                 Object.keys(user).forEach(function (key) {
                     return validKeys.includes(key) || delete user[key];
                 });
@@ -619,6 +616,58 @@ angular.module("userApp").controller("approvedDocumentController", function ($sc
                 });
                 $scope.declarations = declarations;
                 $scope.taxation = taxDocuments;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+            $('#loading').hide();
+            alert("PDF generated!");
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    $(document).on('click', '#btn', function () {
+        $('#loading').show();
+    });
+
+    $(window).load(function () {
+        $('#loading').hide();
+    });
+
+});
+
+
+//Rejected documents Controller
+
+angular.module("userApp").controller("rejectedDocumentController", function ($scope, $http) {
+
+    $scope.RejectedForms = [];
+    $scope.userCode = "";
+
+    if (localStorage.getItem('userObject')) {
+        $scope.userObject = JSON.parse(localStorage.getItem('userObject'));
+        $scope.userCode = $scope.userObject.userCode;
+    }
+
+    _getRejectDocuments();
+
+    function _getRejectDocuments() {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/auth/users/get?id=' + $scope.userCode
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                $scope.RejectedForms = res.data.rejectedDocuments;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);

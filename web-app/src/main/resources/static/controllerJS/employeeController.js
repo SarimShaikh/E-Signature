@@ -495,3 +495,48 @@ angular.module("empApp").controller("approvedEmpDocumentController", function ($
 
 
 });
+
+//Rejected Documents
+angular.module("empApp").controller("RejectEmpDocumentController", function ($scope, $http) {
+
+    $scope.RejectedForms = [];
+
+    _getAllApprovedDecDocuments();
+
+    function _getAllApprovedDecDocuments() {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/auth/rejectedDocuments/getAllRejectDocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                $scope.RejectedForms = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _success(res) {
+        if (res.status == 200) {
+            $('#loading').hide();
+            alert("PDF generated!");
+        }
+    }
+
+    function _error(res) {
+        debugger;
+        console.log('error', res);
+    }
+
+    $(document).on('click', '#btn', function () {
+        $('#loading').show();
+    });
+
+    $(window).load(function () {
+        $('#loading').hide();
+    });
+
+
+});

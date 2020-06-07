@@ -107,4 +107,5 @@ public class DeclarationDocumentService extends ServiceBase<DeclarationDocument,
         long pendingDocsCount = declarationDocumentRepository.getAllPendingDecDocumentsCount();
         return pendingDocsCount;
     }
+
 }

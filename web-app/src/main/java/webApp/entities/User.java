@@ -178,7 +178,6 @@ public class User extends EntityBase<String> implements Serializable {
 
 
     // Getting Setting Rejected Documents
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     public Collection<RejectedDocument> getRejectedDocuments() {

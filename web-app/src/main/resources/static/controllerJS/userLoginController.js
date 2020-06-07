@@ -44,6 +44,7 @@ app.controller("userLoginController", function ($scope, $http) {
             user.oathToken = res.data.outhToken;
             user.declarationDocuments = [];
             user.taxDocuments = [];
+            user.rejectedDocuments = [];
             console.log('user', user);
             localStorage.setItem('userObject', JSON.stringify(user));
             _redirectToDashboard(res.data.outhToken, "U");

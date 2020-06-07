@@ -7,16 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Startmin - Bootstrap Admin Theme</title>
+    <title>User Profile</title>
 
     <!-- Bootstrap Core CSS -->
     <link th:href="@{../css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link th:href="@{../css/metisMenu.min.css}" href="../../static/css/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link th:href="@{../css/timeline.css}" href="../../static/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link th:href="@{../css/startmin.css}" href="../../static/css/startmin.css" rel="stylesheet">
@@ -31,15 +28,20 @@
             th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js}"></script>
 
     <script src="../../static/controllerJS/Angular.js" th:src="@{../controllerJS/Angular.js}"></script>
-    <script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
+    <script src="../../static/controllerJS/employeeController.js"
+            th:src="@{../controllerJS/employeeController.js}"></script>
+
+    <script>
+
+    </script>
 
 </head>
 <body>
 
-<div id="wrapper" ng-app="userApp" ng-controller="rejectedDocumentController">
+<div id="wrapper" ng-app="empApp" ng-controller="RejectEmpDocumentController">
 
     <!-- Navigation -->
-    <div th:replace="pannel/fragments/usernavbar :: usernavbar">
+    <div th:replace="pannel/fragments/employeenavbar :: employeenavbar">
     </div>
 
     <!-- Page Content -->
@@ -57,9 +59,15 @@
 
                     <div class="panel-body">
                         <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                            <div class="form-group col-md-4">
+                                <input type="text" id="myInput" onkeyup="searchFunction()" class="form-control"
+                                       placeholder="Search">
+                            </div>
                             <table class="table table-striped table-bordered table-hover" id="myTable">
                                 <thead>
                                 <tr>
+                                    <th scope="col">UserName</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">DocumentNo:</th>
                                     <th scope="col">Document</th>
                                     <th scope="col">BSB No:</th>
@@ -72,6 +80,8 @@
                                 </thead>
                                 <tbody>
                                 <tr class="odd gradeA" ng-repeat="reject in RejectedForms">
+                                    <td>{{reject.userName}}</td>
+                                    <td>{{reject.userEmail}}</td>
                                     <td>{{reject.documentCode}}</td>
                                     <td>{{reject.documentName}}</td>
                                     <td>{{reject.bsbNumber}}</td>
@@ -99,17 +109,41 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="../../static/controllerJS/userController.js" th:src="@{../controllerJS/userController.js}"></script>
-
 <!-- jQuery -->
 <script src="../../static/js/jquery.min.js" th:src="@{../js/jquery.min.js}"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="../../static/js/bootstrap.min.js" th:src="@{../js/bootstrap.min.js}"></script>
 
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../../static/js/metisMenu.min.js" th:src="@{../js/metisMenu.min.js}"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="../../static/js/startmin.js" th:src="@{../js/startmin.js}"></script>
 
+<script>
+
+    //search function on table
+    function searchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>
 
 </body>
 </html>
