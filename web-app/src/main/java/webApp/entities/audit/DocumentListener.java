@@ -109,8 +109,6 @@ public class DocumentListener {
             } else if (tableName.equals("tax_document")) {
                 queryParam.put("DOCUMENT_TYPE", "TAX");
                 queryParam.remove("REJ_DOC_ID");
-                queryParam.remove("BANK_NAME");
-                queryParam.remove("ACCOUNT_NO");
             }
 
             sb_insert.append("INSERT INTO reject_document_log").append(" (");
