@@ -48,4 +48,18 @@ public class DeclarationDocumentController extends RestControllerBase<Declaratio
     public long getAllPendingDocumentsCount() {
         return declarationDocumentService.getPendingDecDocCount();
     }
+
+    @PostMapping("/getAllApprovedUserDecdocumentsCount")
+    @ResponseBody
+    public long getAllApprovedUserDocumentsCount(@RequestParam(name = "userCode") String userCode) {
+        return declarationDocumentService.getApprovedUserDecDocCount(userCode);
+    }
+
+    @PostMapping("/getAllPendingUserDecdocumentsCount")
+    @ResponseBody
+    public long getAllPendingUserDocumentsCount(@RequestParam(name = "userCode") String userCode) {
+        return declarationDocumentService.getPendingUserDecDocCount(userCode);
+    }
+
+
 }

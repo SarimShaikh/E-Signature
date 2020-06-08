@@ -41,4 +41,10 @@ public interface DeclarationDocumentRepository extends RepositoryBase<Declaratio
 
     @Query(value = "SELECT COUNT(*) FROM declaration_document WHERE document_status='P'", nativeQuery = true)
     Long getAllPendingDecDocumentsCount();
+
+    @Query(value = "SELECT COUNT(*) FROM declaration_document WHERE document_status='A' AND USER_CODE=?1", nativeQuery = true)
+    Long getAllApprovedUserDecDocumentsCount(String userCode);
+
+    @Query(value = "SELECT COUNT(*) FROM declaration_document WHERE document_status='P' AND USER_CODE=?1", nativeQuery = true)
+    Long getAllPendingUserDecDocumentsCount(String userCode);
 }

@@ -42,4 +42,10 @@ public interface TaxDocumentRepository extends RepositoryBase<TaxDocument, Long>
     @Query(value = "SELECT COUNT(*) FROM tax_document WHERE document_status='P'", nativeQuery = true)
     Long getAllPendingTaxDocumentsCount();
 
+    @Query(value = "SELECT COUNT(*) FROM tax_document WHERE document_status='A' AND USER_CODE=?1", nativeQuery = true)
+    Long getAllApprovedUserTaxDocumentsCount(String userCode);
+
+    @Query(value = "SELECT COUNT(*) FROM tax_document WHERE document_status='P' AND USER_CODE=?1", nativeQuery = true)
+    Long getAllPendingUSerTaxDocumentsCount(String userCode);
+
 }

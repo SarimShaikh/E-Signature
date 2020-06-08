@@ -114,4 +114,14 @@ public class TaxDocumentService extends ServiceBase<TaxDocument, Long> {
         long pendingDocsCount = taxDocumentRepository.getAllPendingTaxDocumentsCount();
         return pendingDocsCount;
     }
+
+    public long getApprovedUserTaxDocCount(String userCode){
+        long approvedDocsCount = taxDocumentRepository.getAllApprovedUserTaxDocumentsCount(userCode);
+        return approvedDocsCount;
+    }
+
+    public long getPendingUserTaxDocCount(String userCode){
+        long pendingDocsCount = taxDocumentRepository.getAllPendingUSerTaxDocumentsCount(userCode);
+        return pendingDocsCount;
+    }
 }

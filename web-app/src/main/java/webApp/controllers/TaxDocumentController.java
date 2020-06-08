@@ -52,4 +52,16 @@ public class TaxDocumentController extends RestControllerBase<TaxDocument, Long>
         return taxDocumentService.getPendingTaxDocCount();
     }
 
+    @PostMapping("/getAllApprovedUserTaxdocumentsCount")
+    @ResponseBody
+    public long getAllApprovedUserDocumentsCount(@RequestParam(name = "userCode") String userCode) {
+        return taxDocumentService.getApprovedUserTaxDocCount(userCode);
+    }
+
+    @PostMapping("/getAllPendingUserTaxdocumentsCount")
+    @ResponseBody
+    public long getAllPendingUserDocumentsCount(@RequestParam(name = "userCode") String userCode) {
+        return taxDocumentService.getPendingUserTaxDocCount(userCode);
+    }
+
 }

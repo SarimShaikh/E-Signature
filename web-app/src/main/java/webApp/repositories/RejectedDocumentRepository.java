@@ -22,6 +22,17 @@ public interface RejectedDocumentRepository extends RepositoryBase<RejectedDocum
             "reject.`BUSSINESS_CLIENT` bussinessClient , reject.`BSB_NUMBER` bsbNumber , reject.`BANK_NAME` bankName ,\n" +
             "reject.`ACCOUNT_NO`accountNo , reject.`SIGNATURE` signature , reject.`SIGNATURE_FONT` signatureFont, reject.`REJECT_BY` rejectBy,\n" +
             "reject.`DOCUMENT_TYPE` documentType\n" +
-            "FROM users users JOIN reject_document_log reject ON(users.`USER_CODE` = reject.`USER_CODE`)" , nativeQuery = true)
+            "FROM users users JOIN reject_document_log reject ON(users.`USER_CODE` = reject.`USER_CODE`) AND reject.`DOCUMENT_TYPE`='TAX' " , nativeQuery = true)
     List<Map<String, Object>> getAllRejectedDocuments();
+
+    @Query(value = "SELECT users.`USER_EMAIL` userEmail , users.`USER_NAME` userName, reject.`DOCUMENT_CODE` documentCode,\n" +
+            "reject.`DOCUMENT_NAME` documentName , reject.`ABN_NUMBER` abnNumber,\n" +
+            "reject.`BUSSINESS_CLIENT` bussinessClient , reject.`BSB_NUMBER` bsbNumber ," +
+            "reject.`SIGNATURE` signature , reject.`SIGNATURE_FONT` signatureFont, reject.`REJECT_BY` rejectBy,\n" +
+            "reject.`DOCUMENT_TYPE` documentType\n" +
+            "FROM users users JOIN reject_document_log reject ON(users.`USER_CODE` = reject.`USER_CODE`) AND reject.`DOCUMENT_TYPE`='DEC' " , nativeQuery = true)
+    List<Map<String, Object>> getAllRejectedDecDocuments();
+
+    @Query(value = "SELECT COUNT(*) FROM reject_document_log WHERE USER_CODE=?1", nativeQuery = true)
+    Long getAllRejectUserDocumentsCount(String userCode);
 }

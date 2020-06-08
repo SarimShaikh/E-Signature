@@ -108,4 +108,14 @@ public class DeclarationDocumentService extends ServiceBase<DeclarationDocument,
         return pendingDocsCount;
     }
 
+    public long getApprovedUserDecDocCount(String userCode){
+        long approvedDocsCount = declarationDocumentRepository.getAllApprovedUserDecDocumentsCount(userCode);
+        return approvedDocsCount;
+    }
+
+    public long getPendingUserDecDocCount(String userCode){
+        long pendingDocsCount = declarationDocumentRepository.getAllPendingUserDecDocumentsCount(userCode);
+        return pendingDocsCount;
+    }
+
 }

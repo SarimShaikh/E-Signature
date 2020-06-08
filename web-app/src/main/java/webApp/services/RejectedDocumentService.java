@@ -26,7 +26,18 @@ public class RejectedDocumentService extends ServiceBase<RejectedDocument, Long>
         rejectedDocumentRepository = repository;
     }
 
-    public List<Map<String, Object>> getRejectedDocuments(){
+    public List<Map<String, Object>> getRejectedDocuments() {
         return rejectedDocumentRepository.getAllRejectedDocuments();
     }
+
+    public List<Map<String, Object>> getRejectedDecDocuments() {
+        return rejectedDocumentRepository.getAllRejectedDecDocuments();
+    }
+
+    public long getRejectUserDocCount(String userCode) {
+        long pendingDocsCount = rejectedDocumentRepository.getAllRejectUserDocumentsCount(userCode);
+        return pendingDocsCount;
+    }
+
+
 }

@@ -26,8 +26,20 @@ public class RejectedDocumentController extends RestControllerBase<RejectedDocum
 
     @GetMapping("/getAllRejectDocuments")
     @ResponseBody
-    public List<Map<String, Object>> getAllPendingDocuments() {
+    public List<Map<String, Object>> getAllRejecteDocuments() {
         return rejectedDocumentService.getRejectedDocuments();
+    }
+
+    @GetMapping("/getAllRejectDecDocuments")
+    @ResponseBody
+    public List<Map<String, Object>> getAllRejectedDecDocuments() {
+        return rejectedDocumentService.getRejectedDecDocuments();
+    }
+
+    @PostMapping("/getAllRejectUserDecdocumentsCount")
+    @ResponseBody
+    public long getAllRejectUserDocumentsCount(@RequestParam(name = "userCode") String userCode) {
+        return rejectedDocumentService.getRejectUserDocCount(userCode);
     }
 
 }

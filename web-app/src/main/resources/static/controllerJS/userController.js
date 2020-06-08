@@ -8,6 +8,11 @@ app.controller("userController", function ($scope, $http) {
 
 
     $scope.users = [];
+    $scope.userPendingDecCount = '';
+    $scope.userPendingTaxCount = '';
+    $scope.userApprovedDecCount = '';
+    $scope.userApprovedTaxCount = '';
+    $scope.userRejectCount = '';
     $scope.userForm = {
         userCode: "",
         userName: "",
@@ -28,6 +33,93 @@ app.controller("userController", function ($scope, $http) {
     }
 
     _getUserDataByCode();
+
+    _getUserPendingDecFormsCount();
+    _getUserApprovedDecFormsCount();
+    _getUserPendingTaxFormsCount();
+    _getUSerApprovedTaxFormsCount();
+    _getUSerRejectDocCount();
+
+    function _getUserPendingDecFormsCount() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllPendingUserDecdocumentsCount',
+            params: {userCode: $scope.userForm.userCode}
+        }).then(
+            function (res) { // success
+                $scope.userPendingDecCount = res.data;
+                console.log("----->"+$scope.userPendingDecCount);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getUserApprovedDecFormsCount() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/declaration/getAllApprovedUserDecdocumentsCount',
+            params: {userCode: $scope.userForm.userCode}
+        }).then(
+            function (res) { // success
+                $scope.userApprovedDecCount = res.data;
+                console.log("------>"+$scope.userApprovedDecCount);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getUserPendingTaxFormsCount() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllPendingUserTaxdocumentsCount',
+            params: {userCode: $scope.userForm.userCode}
+        }).then(
+            function (res) { // success
+                $scope.userPendingTaxCount = res.data;
+                console.log("----->"+$scope.userPendingTaxCount);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getUSerApprovedTaxFormsCount() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/taxDocument/getAllApprovedUserTaxdocumentsCount',
+            params: {userCode: $scope.userForm.userCode}
+        }).then(
+            function (res) { // success
+                $scope.userApprovedTaxCount = res.data;
+                console.log("------->"+$scope.userApprovedTaxCount);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getUSerRejectDocCount() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/auth/rejectedDocuments/getAllRejectUserDecdocumentsCount',
+            params: {userCode: $scope.userForm.userCode}
+        }).then(
+            function (res) { // success
+                $scope.userRejectCount = res.data;
+                console.log("------->"+$scope.userRejectCount);
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
 
     $scope.logout = function () {
         localStorage.clear();

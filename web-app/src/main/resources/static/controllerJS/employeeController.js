@@ -500,8 +500,10 @@ angular.module("empApp").controller("approvedEmpDocumentController", function ($
 angular.module("empApp").controller("RejectEmpDocumentController", function ($scope, $http) {
 
     $scope.RejectedForms = [];
+    $scope.RejectedDecForms = [];
 
     _getAllApprovedDecDocuments();
+    _getAllRejectedDecDocuments();
 
     function _getAllApprovedDecDocuments() {
         $http({
@@ -511,6 +513,21 @@ angular.module("empApp").controller("RejectEmpDocumentController", function ($sc
             function (res) { // success
                 console.log("res.data", res.data);
                 $scope.RejectedForms = res.data;
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _getAllRejectedDecDocuments() {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/auth/rejectedDocuments/getAllRejectDecDocuments'
+        }).then(
+            function (res) { // success
+                console.log("res.data", res.data);
+                $scope.RejectedDecForms = res.data;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
